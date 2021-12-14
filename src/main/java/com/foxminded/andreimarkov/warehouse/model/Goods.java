@@ -1,7 +1,10 @@
 package com.foxminded.andreimarkov.warehouse.model;
 
+import lombok.*;
+
 import java.util.Objects;
 
+@Data
 public class Goods {
     private String name;
     private int quantity;
@@ -20,67 +23,4 @@ public class Goods {
         this.location = location;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public Catalog getCategory() {
-        return category;
-    }
-
-    public void setCategory(Catalog category) {
-        this.category = category;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Goods goods = (Goods) o;
-        return quantity == goods.quantity && price == goods.price && Objects.equals(name, goods.name) && Objects.equals(category, goods.category) && Objects.equals(location, goods.location);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, quantity, price, category, location);
-    }
-
-    @Override
-    public String toString() {
-        return "Goods{" +
-                "name='" + name + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", category=" + category +
-                ", location=" + location +
-                '}';
-    }
 }

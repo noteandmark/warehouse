@@ -1,5 +1,8 @@
 package com.foxminded.andreimarkov.warehouse.model;
 
+import lombok.*;
+
+@Data
 public class Customer {
     private int id;
     private int balance;
@@ -16,35 +19,4 @@ public class Customer {
         this.phone = phone;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 }

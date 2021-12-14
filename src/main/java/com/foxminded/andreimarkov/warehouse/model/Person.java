@@ -1,7 +1,10 @@
 package com.foxminded.andreimarkov.warehouse.model;
 
+import lombok.*;
+
 import java.util.Objects;
 
+@Data
 public class Person extends Customer {
     private String firstName;
     private String surName;
@@ -15,40 +18,4 @@ public class Person extends Customer {
         this.surName = surName;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSurName() {
-        return surName;
-    }
-
-    public void setSurName(String surName) {
-        this.surName = surName;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(firstName, person.firstName) && Objects.equals(surName, person.surName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, surName);
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "firstName='" + firstName + '\'' +
-                ", surName='" + surName + '\'' +
-                '}';
-    }
 }
