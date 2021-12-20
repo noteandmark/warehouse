@@ -11,8 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-@Component
-public class PersonDAOImpl implements PersonDAO {
+//@Component
+public class PersonDAOImpl {
 
     JdbcTemplate jdbcTemplate;
 
@@ -22,37 +22,36 @@ public class PersonDAOImpl implements PersonDAO {
     private final String SQL_GET_ALL = "select * from person";
     private final String SQL_INSERT_PERSON = "insert into person(id, first_name, sur_name, balance, address, phone) values(?,?,?,?,?,?)";
 
-    @Autowired
+    //    @Autowired
     public PersonDAOImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     public List<Person> findAll() {
-        return jdbcTemplate.query("select * from person",
-                new PersonRowMapper());
+        return jdbcTemplate.query(SQL_GET_ALL, new PersonRowMapper());
     }
 
-    @Override
-    public Person getPersonById(Long id) {
+
+    public Person getById(Long id) {
         return jdbcTemplate.queryForObject(SQL_FIND_PERSON, new Object[]{id}, new PersonRowMapper());
     }
 
-    @Override
+
     public List<Person> getAllPersons() {
         return null;
     }
 
-    @Override
+
     public boolean deletePerson(Person person) {
         return false;
     }
 
-    @Override
+
     public boolean updatePerson(Person person) {
         return false;
     }
 
-    @Override
+
     public boolean createPerson(Person person) {
         return false;
     }
