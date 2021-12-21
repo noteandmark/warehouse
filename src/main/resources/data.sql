@@ -1,0 +1,1 @@
+insert into schema.person (first_name, sur_name) values ('Ben','Elliot');

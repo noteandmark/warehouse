@@ -1,20 +1,18 @@
 package com.foxminded.andreimarkov.warehouse.dao;
 
 import com.foxminded.andreimarkov.warehouse.model.Person;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
-//@Component
-public class PersonDAOImpl {
+public class JdbcPersonDAOImpl implements AbstractDAO<T>{
 
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     private final String SQL_FIND_PERSON = "select * from person where id = ?";
     private final String SQL_DELETE_PERSON = "delete from person where id = ?";
@@ -23,7 +21,7 @@ public class PersonDAOImpl {
     private final String SQL_INSERT_PERSON = "insert into person(id, first_name, sur_name, balance, address, phone) values(?,?,?,?,?,?)";
 
     //    @Autowired
-    public PersonDAOImpl(DataSource dataSource) {
+    public JdbcPersonDAOImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -37,8 +35,28 @@ public class PersonDAOImpl {
     }
 
 
+    @Override
+    public T create(T t) {
+        return null;
+    }
+
+    @Override
+    public Optional<T> getById(int id) {
+        return Optional.empty();
+    }
+
     public List<Person> getAllPersons() {
         return null;
+    }
+
+    @Override
+    public T updatePerson(T t) {
+        return null;
+    }
+
+    @Override
+    public void deletePerson(T t) {
+
     }
 
 
