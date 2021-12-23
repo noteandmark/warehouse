@@ -11,7 +11,7 @@ public class Company extends Customer {
     public Company() {
     }
 
-    public Company(int id, int balance, String address, String phone, String name) {
+    public Company(Long id, int balance, String address, String phone, String name) {
         super(id, balance, address, phone);
         this.name = name;
     }

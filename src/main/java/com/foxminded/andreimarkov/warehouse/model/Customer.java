@@ -4,7 +4,7 @@ import lombok.*;
 
 @Data
 public class Customer {
-    private int id;
+    private Long id;
     private int balance;
     private String address;
     private String phone;
@@ -12,7 +12,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int id, int balance, String address, String phone) {
+    public Customer(Long id, int balance, String address, String phone) {
         this.id = id;
         this.balance = balance;
         this.address = address;

@@ -4,15 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AbstractDAO<T> {
-    T create(T t);
 
-    Optional<T> getById(int id);
+    Optional<T> create(T t);
 
-    List<T> getAllPersons();
+    Optional<T> getById(Long id);
 
-    T updatePerson(T t);
+    List<T> findAll();
 
-    void deletePerson(T t);
+    Optional<T> update(T t);
+
+    int delete(Long id);
 
 
 
