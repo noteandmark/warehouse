@@ -1,35 +1,51 @@
 package com.foxminded.andreimarkov.warehouse.dao.impl;
 
-import com.foxminded.andreimarkov.warehouse.dao.AbstractDAO;
 import com.foxminded.andreimarkov.warehouse.dao.PersonDAO;
 import com.foxminded.andreimarkov.warehouse.model.Person;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
-
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Repository("jdbcPersonDAOImpl")
 public class JdbcPersonDAOImpl implements PersonDAO {
 
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
+    @Autowired
     public JdbcPersonDAOImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private final String SQL_FIND_PERSON = "select * from schema.person where id = ?";
-    private final String SQL_DELETE_PERSON = "delete from schema.person where id = ?";
-    private final String SQL_UPDATE_PERSON = "update schema.person set first_name = ?, sur_name = ?, balance  = ?, address = ?, phone = ? where id = ?";
-    private final String SQL_GET_ALL = "select first_name,sur_name,balance,address,phone from schema.person";
-    private final String SQL_INSERT_PERSON = "insert into schema.person(first_name, sur_name, balance, address, phone) values(?,?,?,?,?)";
+    private static final String SQL_FIND_PERSON = "select first_name,sur_name,balance,address,phone from schema.person where id = ?";
+    private static final String SQL_DELETE_PERSON = "delete from schema.person where id = ?";
+    private static final String SQL_UPDATE_PERSON = "update schema.person set first_name = ?, sur_name = ?, balance  = ?, address = ?, phone = ? where id = ?";
+    private static final String SQL_GET_ALL = "select first_name,sur_name,balance,address,phone from schema.person";
+    private static final String SQL_INSERT_PERSON = "insert into schema.person(first_name, sur_name, balance, address, phone) values(?,?,?,?,?);";
 
     @Override
-    public Optional<Person> create(Person person) {
-        System.out.println("in create method");
-        jdbcTemplate.update(SQL_INSERT_PERSON, person.getFirstName(), person.getSurName(), person.getBalance(), person.getAddress(), person.getPhone());
-        return getById(person.getId());
+    public Person create(Person person) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+                connection -> {
+                    PreparedStatement ps =
+                            connection.prepareStatement(SQL_INSERT_PERSON, new String[] {"id"});
+                    ps.setString(1,  person.getFirstName());
+                    ps.setString(2,  person.getSurName());
+                    ps.setInt(3,  person.getBalance());
+                    ps.setString(4,  person.getAddress());
+                    ps.setString(5,  person.getPhone());
+                    return ps;
+                },
+                keyHolder);
+        person.setId(keyHolder.getKey().longValue());
+        return getById(person.getId()).get();
     }
 
     @Override
@@ -39,18 +55,19 @@ public class JdbcPersonDAOImpl implements PersonDAO {
 
     @Override
     public Optional<Person> getById(Long id) {
-        Person person = new Person();
-        person = jdbcTemplate.queryForObject(SQL_FIND_PERSON, new Object[]{id}, new BeanPropertyRowMapper<Person>(Person.class));
-        if (!(person == null)) {
-            return Optional.ofNullable(person);
-        } else
+        System.out.println("LONG ID = " + id);
+        try {
+            return Optional.of(jdbcTemplate.queryForObject(SQL_FIND_PERSON,
+                    new BeanPropertyRowMapper<Person>(Person.class),id));
+        } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
+        }
     }
 
     @Override
-    public Optional<Person> update(Person person) {
-        jdbcTemplate.update(SQL_UPDATE_PERSON, person.getFirstName(), person.getSurName(), person.getBalance(), person.getAddress(), person.getPhone());
-        return getById(person.getId());
+    public Person update(Person person) {
+        jdbcTemplate.update(SQL_UPDATE_PERSON, person.getFirstName(), person.getSurName(), person.getBalance(), person.getAddress(), person.getPhone(),person.getId());
+        return getById(person.getId()).get();
     }
 
     @Override

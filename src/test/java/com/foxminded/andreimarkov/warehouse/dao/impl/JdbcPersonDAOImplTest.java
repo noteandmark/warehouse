@@ -1,73 +1,69 @@
 package com.foxminded.andreimarkov.warehouse.dao.impl;
 
-import com.foxminded.andreimarkov.warehouse.dao.AbstractDAO;
-import com.foxminded.andreimarkov.warehouse.model.Customer;
 import com.foxminded.andreimarkov.warehouse.model.Person;
 import org.junit.jupiter.api.*;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.jdbc.Sql;
+import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+@JdbcTest
+@Import(JdbcPersonDAOImpl.class)
+@Sql({"classpath:schema.sql", "classpath:data.sql"})
 class JdbcPersonDAOImplTest {
 
-    private EmbeddedDatabase embeddedDatabase;
-
-    private JdbcTemplate jdbcTemplate;
-
-    private AbstractDAO personDAO;
-
-    @BeforeEach
-    public void setUp() {
-        embeddedDatabase = new EmbeddedDatabaseBuilder()
-                .addDefaultScripts()// add scripts schema.sql and data.sql
-                .setType(EmbeddedDatabaseType.H2)// use base H2
-                .build();
-        jdbcTemplate = new JdbcTemplate(embeddedDatabase);
-        personDAO = new JdbcPersonDAOImpl(jdbcTemplate);
-    }
+    @Autowired
+    private JdbcPersonDAOImpl repository;
 
     @Test
     void create() {
-        System.out.println("personDAO is instanse of " + personDAO.getClass().isInstance(JdbcPersonDAOImpl.class));
-        Customer person = new Person(100L,"Sam", "Becket", 1000, "75, Lincoln drive", "3801112233");
-        System.out.println("person -> " + person.toString());
-        System.out.println("person.address = " + person.getAddress());
-        personDAO.create(person);
-        System.out.println("after personDAO.create(person)");
-        Person actual =  (Person) personDAO.getById(100L).get();
-        assertNotNull(actual);
-        assertEquals("Sam",actual.getFirstName());
+        Person person = new Person();
+        person.setFirstName("Sam");
+        person.setSurName("Becket");
+        person.setBalance(1300);
+        person.setAddress("75, Lincoln drive");
+        person.setPhone("3801112233");
+        repository.create(person);
+        assertNotNull(person);
+        assertNotNull(person.getId());
+        assertEquals("Sam",person.getFirstName());
     }
 
     @Test
-    @Disabled
     void findAll() {
-
-        assertNotNull(personDAO.findAll());
-        assertEquals(2, personDAO.findAll().size());
+        assertNotNull(repository.findAll());
+        assertEquals(1, repository.findAll().size());
     }
 
     @Test
-    @Disabled
     void getById() {
+        Optional<Boolean> present = Optional.of(repository.getById(100000L).isPresent());
+        assertFalse(present.get());
+        assertNotNull(repository.getById(1L).get());
     }
 
     @Test
-    @Disabled
     void update() {
+        Person person = new Person();
+        person.setFirstName("Roy");
+        person.setSurName("Paulson");
+        person.setBalance(300);
+        person.setAddress("5, Foo drive");
+        person.setPhone("70801112233");
+        repository.create(person);
+        person.setFirstName("Gregory");
+        Person updated = repository.update(person);
+        assertNotNull(updated);
+        assertNotNull(updated.getId());
+        assertEquals("Gregory",updated.getFirstName());
     }
 
     @Test
-    @Disabled
     void delete() {
+        assertEquals(1, repository.delete(1L));
+        assertEquals(0, repository.delete(1L));
     }
 
-    @AfterEach
-    public void tearDown() {
-        embeddedDatabase.shutdown();
-    }
 }

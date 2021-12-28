@@ -2,20 +2,13 @@ package com.foxminded.andreimarkov.warehouse.model;
 
 import lombok.*;
 
-import java.util.Objects;
-
 @Data
-public class Person extends Customer {
+public class Person{
+    private Long id;
     private String firstName;
     private String surName;
-
-    public Person() {
-    }
-
-    public Person(Long id, String firstName, String surName, int balance, String address, String phone) {
-        super(id, balance, address, phone);
-        this.firstName = firstName;
-        this.surName = surName;
-    }
+    private int balance;
+    private String address;
+    private String phone;
 
 }
