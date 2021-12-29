@@ -6,15 +6,7 @@ import java.util.Objects;
 
 @Data
 public class Location {
+    private Long id;
     private String warehouseName;
     private int shelfNumber;
-
-    public Location() {
-    }
-
-    public Location(String warehouseName, int shelfNumber) {
-        this.warehouseName = warehouseName;
-        this.shelfNumber = shelfNumber;
-    }
-
 }

@@ -1,55 +1,50 @@
 package com.foxminded.andreimarkov.warehouse.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
+
 import javax.sql.DataSource;
 
-@Configuration
-@ComponentScan("com.foxminded.andreimarkov.warehouse")
-@PropertySource("classpath:application.properties")
+@Component
 @ConditionalOnProperty(
-        value="development.enabled",
+        value = "development.enabled",
         matchIfMissing = false)
-public class JdbcDataSourceConfig {
+public class JdbcDataSourceConfig implements ApplicationListener<ContextRefreshedEvent>, ApplicationContextAware {
 
-    @Value("${spring.datasource.url}")
-    private String URL;
-    @Value("${spring.datasource.username}")
-    private String USER;
-    @Value("${spring.datasource.driver-class-name}")
-    private String DRIVER;
-    @Value("${spring.datasource.password}")
-    private String PASSWORD;
+    private static final String SQL_FILE = "startedData.sql";
+    private final DataSource dataSource;
+    private ApplicationContext applicationContext;
 
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(DRIVER);
-        dataSource.setUrl(URL);
-        dataSource.setUsername(USER);
-        dataSource.setPassword(PASSWORD);
-        return dataSource;
+    @Autowired
+    public JdbcDataSourceConfig(DataSource dataSource) {
+        Assert.notNull(dataSource, "DataSource must not be null!");
+        this.dataSource = dataSource;
     }
 
-    @Bean
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(dataSource());
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
-    // feature not realized yet
-//    @EventListener
-//    public void onApplicationEvent(ContextRefreshedEvent event) {
-//        try {
-//
-//        } catch (PropertyVetoException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        if (!event.getApplicationContext().equals(applicationContext)) {
+            return;
+        }
 
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.setScripts(new Resource[]{new ClassPathResource(SQL_FILE)});
+        DatabasePopulatorUtils.execute(populator, dataSource);
+    }
 }

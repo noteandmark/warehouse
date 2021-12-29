@@ -1,35 +1,35 @@
 package com.foxminded.andreimarkov.warehouse.dao.impl;
 
-import com.foxminded.andreimarkov.warehouse.model.Person;
-import org.junit.jupiter.api.*;
+import com.foxminded.andreimarkov.warehouse.model.Company;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @JdbcTest
-@Import(JdbcPersonDAOImpl.class)
+@Import(JdbcCompanyDAOImpl.class)
 @Sql({"classpath:schema.sql", "classpath:startedData.sql"})
-class JdbcPersonDAOImplTest {
+class JdbcCompanyDAOImplTest {
 
     @Autowired
-    private JdbcPersonDAOImpl repository;
+    private JdbcCompanyDAOImpl repository;
 
     @Test
     void create() {
-        Person person = new Person();
-        person.setFirstName("Sam");
-        person.setSurName("Becket");
-        person.setBalance(1300);
-        person.setAddress("75, Lincoln drive");
-        person.setPhone("3801112233");
-        repository.create(person);
-        assertNotNull(person);
-        assertNotNull(person.getId());
-        assertEquals("Sam",person.getFirstName());
+        Company company = new Company();
+        company.setName("New Industry Tech");
+        company.setBalance(1300);
+        company.setAddress("75, Lincoln drive");
+        company.setPhone("3807772233");
+        repository.create(company);
+        assertNotNull(company);
+        assertNotNull(company.getId());
+        assertEquals("New Industry Tech",company.getName());
     }
 
     @Test
@@ -47,18 +47,17 @@ class JdbcPersonDAOImplTest {
 
     @Test
     void update() {
-        Person person = new Person();
-        person.setFirstName("Roy");
-        person.setSurName("Paulson");
-        person.setBalance(300);
-        person.setAddress("5, Foo drive");
-        person.setPhone("70801112233");
-        repository.create(person);
-        person.setFirstName("Gregory");
-        Person updated = repository.update(person);
+        Company company = new Company();
+        company.setName("IBC");
+        company.setBalance(300);
+        company.setAddress("5, Foo drive");
+        company.setPhone("70801112233");
+        repository.create(company);
+        company.setName("IBC NEW");
+        Company updated = repository.update(company);
         assertNotNull(updated);
         assertNotNull(updated.getId());
-        assertEquals("Gregory",updated.getFirstName());
+        assertEquals("IBC NEW",updated.getName());
     }
 
     @Test
@@ -66,5 +65,4 @@ class JdbcPersonDAOImplTest {
         assertEquals(1, repository.delete(1L));
         assertEquals(0, repository.delete(1L));
     }
-
 }

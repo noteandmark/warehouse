@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("jdbcPersonDAOImpl")
+@Repository
 public class JdbcPersonDAOImpl implements PersonDAO {
 
     private final JdbcTemplate jdbcTemplate;
@@ -45,7 +45,7 @@ public class JdbcPersonDAOImpl implements PersonDAO {
                 },
                 keyHolder);
         person.setId(keyHolder.getKey().longValue());
-        return getById(person.getId()).get();
+        return person;
     }
 
     @Override
@@ -55,7 +55,6 @@ public class JdbcPersonDAOImpl implements PersonDAO {
 
     @Override
     public Optional<Person> getById(Long id) {
-        System.out.println("LONG ID = " + id);
         try {
             return Optional.of(jdbcTemplate.queryForObject(SQL_FIND_PERSON,
                     new BeanPropertyRowMapper<Person>(Person.class),id));
@@ -67,7 +66,7 @@ public class JdbcPersonDAOImpl implements PersonDAO {
     @Override
     public Person update(Person person) {
         jdbcTemplate.update(SQL_UPDATE_PERSON, person.getFirstName(), person.getSurName(), person.getBalance(), person.getAddress(), person.getPhone(),person.getId());
-        return getById(person.getId()).get();
+        return person;
     }
 
     @Override

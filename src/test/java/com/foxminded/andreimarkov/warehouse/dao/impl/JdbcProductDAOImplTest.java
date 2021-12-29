@@ -1,35 +1,36 @@
 package com.foxminded.andreimarkov.warehouse.dao.impl;
 
-import com.foxminded.andreimarkov.warehouse.model.Person;
-import org.junit.jupiter.api.*;
+import com.foxminded.andreimarkov.warehouse.model.Product;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @JdbcTest
-@Import(JdbcPersonDAOImpl.class)
+@Import(JdbcProductDAOImpl.class)
 @Sql({"classpath:schema.sql", "classpath:startedData.sql"})
-class JdbcPersonDAOImplTest {
+class JdbcProductDAOImplTest {
 
     @Autowired
-    private JdbcPersonDAOImpl repository;
+    private JdbcProductDAOImpl repository;
 
     @Test
     void create() {
-        Person person = new Person();
-        person.setFirstName("Sam");
-        person.setSurName("Becket");
-        person.setBalance(1300);
-        person.setAddress("75, Lincoln drive");
-        person.setPhone("3801112233");
-        repository.create(person);
-        assertNotNull(person);
-        assertNotNull(person.getId());
-        assertEquals("Sam",person.getFirstName());
+        Product product = new Product();
+        product.setCode("350790");
+        product.setName("Magnum WPF 2*18w");
+        product.setDescription("fluorescent light bulb T8");
+        product.setQuantity(22);
+        product.setPrice(1500);
+        repository.create(product);
+        assertNotNull(product);
+        assertNotNull(product.getId());
+        assertEquals("Magnum WPF 2*18w",product.getName());
     }
 
     @Test
@@ -47,18 +48,18 @@ class JdbcPersonDAOImplTest {
 
     @Test
     void update() {
-        Person person = new Person();
-        person.setFirstName("Roy");
-        person.setSurName("Paulson");
-        person.setBalance(300);
-        person.setAddress("5, Foo drive");
-        person.setPhone("70801112233");
-        repository.create(person);
-        person.setFirstName("Gregory");
-        Person updated = repository.update(person);
+        Product product = new Product();
+        product.setCode("350790");
+        product.setName("Magnum WPF 2*18w");
+        product.setDescription("fluorescent light bulb T8");
+        product.setQuantity(22);
+        product.setPrice(1500);
+        repository.create(product);
+        product.setName("Magnum fluorescent WPF 2*18w");
+        Product updated = repository.update(product);
         assertNotNull(updated);
         assertNotNull(updated.getId());
-        assertEquals("Gregory",updated.getFirstName());
+        assertEquals("Magnum fluorescent WPF 2*18w",updated.getName());
     }
 
     @Test
@@ -66,5 +67,4 @@ class JdbcPersonDAOImplTest {
         assertEquals(1, repository.delete(1L));
         assertEquals(0, repository.delete(1L));
     }
-
 }
