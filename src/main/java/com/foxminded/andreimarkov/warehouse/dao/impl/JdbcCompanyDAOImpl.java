@@ -18,7 +18,7 @@ import java.util.Optional;
 public class JdbcCompanyDAOImpl implements CompanyDAO {
     private final JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_FIND_COMPANY = "select name,balance,address,phone from schema.company where id = ?";
+    private static final String SQL_FIND_COMPANY = "select id,name,balance,address,phone from schema.company where id = ?";
     private static final String SQL_DELETE_COMPANY = "delete from schema.company where id = ?";
     private static final String SQL_UPDATE_COMPANY = "update schema.company set name = ?, balance  = ?, address = ?, phone = ? where id = ?";
     private static final String SQL_GET_ALL = "select name,balance,address,phone from schema.company";

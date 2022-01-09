@@ -18,7 +18,7 @@ import java.util.Optional;
 public class JdbcProductDAOImpl implements ProductDAO {
     private final JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_FIND_PRODUCT = "select code,name,description,quantity,price from schema.product where id = ?";
+    private static final String SQL_FIND_PRODUCT = "select id,code,name,description,quantity,price from schema.product where id = ?";
     private static final String SQL_DELETE_PRODUCT = "delete from schema.product where id = ?";
     private static final String SQL_UPDATE_PRODUCT = "update schema.product set code = ?, name = ?, description  = ?, quantity = ?, price = ? where id = ?";
     private static final String SQL_GET_ALL = "select code,name,description,quantity,price from schema.product";

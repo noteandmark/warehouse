@@ -20,14 +20,11 @@ public class JdbcCatalogDAOImpl implements CatalogDAO {
     private final JdbcTemplate jdbcTemplate;
     private final JdbcProductDAOImpl goodsDao;
 
-    private static final String SQL_FIND_CATALOG = "select name from schema.catalog where id = ?";
+    private static final String SQL_FIND_CATALOG = "select id,name from schema.catalog where id = ?";
     private static final String SQL_DELETE_CATALOG = "delete from schema.catalog where id = ?";
     private static final String SQL_UPDATE_CATALOG = "update schema.catalog set name = ? where id = ?";
     private static final String SQL_GET_ALL = "select name from schema.catalog";
     private static final String SQL_INSERT_CATALOG = "insert into schema.catalog(name) values(?);";
-    private static final String SQL_INSERT_PRODUCT = "insert into schema.product_catalog(product_id, catalog_id) VALUES (?,?)";
-    private static final String SQL_DELETE_PRODUCT = "delete from schema.product_catalog WHERE product_id = ? AND catalog_id = ?";
-    private static final String SQL_GET_ALL_PRODUCTS = "select code,name,description,quantity,price from schema.product JOIN schema.product_catalog on schema.product_catalog.product_id=schema.product.id WHERE schema.product_catalog.catalog_id = ?";
 
     @Autowired
     public JdbcCatalogDAOImpl(JdbcTemplate jdbcTemplate, JdbcProductDAOImpl goodsDao) {
@@ -76,15 +73,4 @@ public class JdbcCatalogDAOImpl implements CatalogDAO {
         return jdbcTemplate.update(SQL_DELETE_CATALOG, id);
     }
 
-    public void addProductToCatalog(Long productId, Long catalogId) {
-        jdbcTemplate.update(SQL_INSERT_PRODUCT, productId, catalogId);
-    }
-
-    public void deleteProductFromCatalog(Long productId, Long catalogId) {
-        jdbcTemplate.update(SQL_DELETE_PRODUCT, productId, catalogId);
-    }
-
-    public List<Product> getProductFromCatalog (Long catalogId) {
-        return jdbcTemplate.query(SQL_GET_ALL_PRODUCTS, new BeanPropertyRowMapper<>(Product.class), catalogId);
-    }
 }

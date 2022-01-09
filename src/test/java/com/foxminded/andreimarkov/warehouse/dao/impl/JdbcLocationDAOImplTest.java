@@ -1,12 +1,10 @@
 package com.foxminded.andreimarkov.warehouse.dao.impl;
 
-import com.foxminded.andreimarkov.warehouse.model.Catalog;
-import org.junit.jupiter.api.Assertions;
+import com.foxminded.andreimarkov.warehouse.model.Location;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
@@ -14,21 +12,22 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @JdbcTest
-@Import(JdbcCatalogDAOImpl.class)
+@Import(JdbcLocationDAOImpl.class)
 @Sql({"classpath:schema.sql", "classpath:startedData.sql"})
-class JdbcCatalogDAOImplTest {
+class JdbcLocationDAOImplTest {
 
     @Autowired
-    private JdbcCatalogDAOImpl repository;
+    private JdbcLocationDAOImpl repository;
 
     @Test
     void create() {
-        Catalog catalog = new Catalog();
-        catalog.setName("halogen lamps");
-        repository.create(catalog);
-        assertNotNull(catalog);
-        assertNotNull(catalog.getId());
-        assertEquals("halogen lamps",catalog.getName());
+        Location location = new Location();
+        location.setWarehouseName("83 warehouse");
+        location.setShelfNumber(15);
+        repository.create(location);
+        assertNotNull(location);
+        assertNotNull(location.getId());
+        assertEquals("83 warehouse",location.getWarehouseName());
     }
 
     @Test
@@ -46,14 +45,15 @@ class JdbcCatalogDAOImplTest {
 
     @Test
     void update() {
-        Catalog catalog = new Catalog();
-        catalog.setName("lamps");
-        repository.create(catalog);
-        catalog.setName("led lamps");
-        Catalog updated = repository.update(catalog);
+        Location location = new Location();
+        location.setWarehouseName("83 warehouse");
+        location.setShelfNumber(10);
+        repository.create(location);
+        location.setShelfNumber(20);
+        Location updated = repository.update(location);
         assertNotNull(updated);
         assertNotNull(updated.getId());
-        assertEquals("led lamps",updated.getName());
+        assertEquals(20,updated.getShelfNumber());
     }
 
     @Test
@@ -61,5 +61,4 @@ class JdbcCatalogDAOImplTest {
         assertEquals(1, repository.delete(1L));
         assertEquals(0, repository.delete(1L));
     }
-
 }

@@ -1,12 +1,10 @@
 package com.foxminded.andreimarkov.warehouse.dao.impl;
 
-import com.foxminded.andreimarkov.warehouse.model.Catalog;
-import org.junit.jupiter.api.Assertions;
+import com.foxminded.andreimarkov.warehouse.model.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
@@ -14,21 +12,22 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @JdbcTest
-@Import(JdbcCatalogDAOImpl.class)
+@Import(JdbcOrderDAOImpl.class)
 @Sql({"classpath:schema.sql", "classpath:startedData.sql"})
-class JdbcCatalogDAOImplTest {
+class JdbcOrderDAOImplTest {
 
     @Autowired
-    private JdbcCatalogDAOImpl repository;
+    private JdbcOrderDAOImpl repository;
 
     @Test
     void create() {
-        Catalog catalog = new Catalog();
-        catalog.setName("halogen lamps");
-        repository.create(catalog);
-        assertNotNull(catalog);
-        assertNotNull(catalog.getId());
-        assertEquals("halogen lamps",catalog.getName());
+        Order order = new Order();
+        order.setStatus("not_processed");
+        order.setDate("09-01-2022 19:14:00");
+        repository.create(order);
+        assertNotNull(order);
+        assertNotNull(order.getId());
+        assertEquals("not_processed",order.getStatus());
     }
 
     @Test
@@ -46,14 +45,17 @@ class JdbcCatalogDAOImplTest {
 
     @Test
     void update() {
-        Catalog catalog = new Catalog();
-        catalog.setName("lamps");
-        repository.create(catalog);
-        catalog.setName("led lamps");
-        Catalog updated = repository.update(catalog);
+        Order order = new Order();
+        order.setStatus("not_processed");
+        order.setDate("10-01-2022 10:00:00");
+        repository.create(order);
+        order.setStatus("processed");
+        order.setDate("10-01-2022 11:00:00");
+        Order updated = repository.update(order);
         assertNotNull(updated);
         assertNotNull(updated.getId());
-        assertEquals("led lamps",updated.getName());
+        assertEquals("processed",updated.getStatus());
+        assertEquals("10-01-2022 11:00:00",updated.getDate());
     }
 
     @Test

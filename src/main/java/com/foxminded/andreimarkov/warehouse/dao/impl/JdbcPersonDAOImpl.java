@@ -23,7 +23,7 @@ public class JdbcPersonDAOImpl implements PersonDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private static final String SQL_FIND_PERSON = "select first_name,sur_name,balance,address,phone from schema.person where id = ?";
+    private static final String SQL_FIND_PERSON = "select id,first_name,sur_name,balance,address,phone from schema.person where id = ?";
     private static final String SQL_DELETE_PERSON = "delete from schema.person where id = ?";
     private static final String SQL_UPDATE_PERSON = "update schema.person set first_name = ?, sur_name = ?, balance  = ?, address = ?, phone = ? where id = ?";
     private static final String SQL_GET_ALL = "select first_name,sur_name,balance,address,phone from schema.person";
