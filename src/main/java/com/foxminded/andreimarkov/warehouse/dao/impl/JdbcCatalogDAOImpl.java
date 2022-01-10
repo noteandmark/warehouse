@@ -2,7 +2,6 @@ package com.foxminded.andreimarkov.warehouse.dao.impl;
 
 import com.foxminded.andreimarkov.warehouse.dao.CatalogDAO;
 import com.foxminded.andreimarkov.warehouse.model.Catalog;
-import com.foxminded.andreimarkov.warehouse.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -18,7 +17,6 @@ import java.util.Optional;
 @Repository
 public class JdbcCatalogDAOImpl implements CatalogDAO {
     private final JdbcTemplate jdbcTemplate;
-    private final JdbcProductDAOImpl goodsDao;
 
     private static final String SQL_FIND_CATALOG = "select id,name from schema.catalog where id = ?";
     private static final String SQL_DELETE_CATALOG = "delete from schema.catalog where id = ?";
@@ -27,9 +25,8 @@ public class JdbcCatalogDAOImpl implements CatalogDAO {
     private static final String SQL_INSERT_CATALOG = "insert into schema.catalog(name) values(?);";
 
     @Autowired
-    public JdbcCatalogDAOImpl(JdbcTemplate jdbcTemplate, JdbcProductDAOImpl goodsDao) {
+    public JdbcCatalogDAOImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.goodsDao = goodsDao;
     }
 
     @Override
