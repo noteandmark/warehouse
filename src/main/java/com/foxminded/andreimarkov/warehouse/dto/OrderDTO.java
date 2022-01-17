@@ -1,4 +1,4 @@
-package com.foxminded.andreimarkov.warehouse.model;
+package com.foxminded.andreimarkov.warehouse.dto;
 
 import lombok.Data;
 
@@ -6,9 +6,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class Order extends AbstractEntity  {
+public class OrderDTO extends AbstractDTO {
     private Long id;
     private String status;
     private String date;
-    public List<OrderPosition> items;
+    public List<OrderPositionDTO> items;
 }

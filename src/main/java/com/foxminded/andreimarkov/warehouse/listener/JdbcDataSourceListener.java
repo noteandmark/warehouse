@@ -1,4 +1,4 @@
-package com.foxminded.andreimarkov.warehouse.config;
+package com.foxminded.andreimarkov.warehouse.listener;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ import javax.sql.DataSource;
 @ConditionalOnProperty(
         value = "development.enabled",
         matchIfMissing = false)
-public class JdbcDataSourceConfig implements ApplicationListener<ContextRefreshedEvent>, ApplicationContextAware {
+public class JdbcDataSourceListener implements ApplicationListener<ContextRefreshedEvent>, ApplicationContextAware {
 
     private static final String SQL_FILE = "startedData.sql";
     private final DataSource dataSource;
     private ApplicationContext applicationContext;
 
     @Autowired
-    public JdbcDataSourceConfig(DataSource dataSource) {
+    public JdbcDataSourceListener(DataSource dataSource) {
         Assert.notNull(dataSource, "DataSource must not be null!");
         this.dataSource = dataSource;
     }

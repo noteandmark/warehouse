@@ -3,7 +3,7 @@ package com.foxminded.andreimarkov.warehouse.model;
 import lombok.*;
 
 @Data
-public class Product {
+public class Product extends AbstractEntity {
     private Long id;
     private String code;
     private String name;
