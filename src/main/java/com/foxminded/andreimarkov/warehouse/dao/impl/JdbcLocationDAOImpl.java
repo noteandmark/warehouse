@@ -29,7 +29,7 @@ public class JdbcLocationDAOImpl implements LocationDAO {
     private static final String SQL_INSERT_LOCATION = "insert into schema.location(warehouse_name, shelf_number) values(?,?);";
 
     @Override
-    public Location create(Location location) {
+    public Location save(Location location) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {

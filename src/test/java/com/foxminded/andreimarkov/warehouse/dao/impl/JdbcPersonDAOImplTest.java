@@ -5,7 +5,6 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,14 +18,14 @@ class JdbcPersonDAOImplTest {
     private JdbcPersonDAOImpl repository;
 
     @Test
-    void create() {
+    void save() {
         Person person = new Person();
         person.setFirstName("Sam");
         person.setSurName("Becket");
         person.setBalance(1300);
         person.setAddress("75, Lincoln drive");
         person.setPhone("3801112233");
-        repository.create(person);
+        repository.save(person);
         assertNotNull(person);
         assertNotNull(person.getId());
         assertEquals("Sam",person.getFirstName());
@@ -53,7 +52,7 @@ class JdbcPersonDAOImplTest {
         person.setBalance(300);
         person.setAddress("5, Foo drive");
         person.setPhone("70801112233");
-        repository.create(person);
+        repository.save(person);
         person.setFirstName("Gregory");
         Person updated = repository.update(person);
         assertNotNull(updated);

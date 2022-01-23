@@ -1,8 +1,6 @@
 package com.foxminded.andreimarkov.warehouse.dao.impl;
 
 import com.foxminded.andreimarkov.warehouse.model.OrderPosition;
-import com.foxminded.andreimarkov.warehouse.model.Product;
-import org.hamcrest.core.AnyOf;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
@@ -25,11 +23,11 @@ class JdbcOrderPositionDAOImplTest {
     private JdbcProductDAOImpl productDAO;
 
     @Test
-    void create() {
+    void save() {
         OrderPosition orderPosition = new OrderPosition();
         orderPosition.setAmount(150);
         orderPosition.setItem(productDAO.getById(1L).get());
-        orderPositionDAO.create(orderPosition);
+        orderPositionDAO.save(orderPosition);
         assertNotNull(orderPosition);
         assertNotNull(orderPosition.getId());
         assertEquals(150,orderPosition.getAmount());
@@ -53,7 +51,7 @@ class JdbcOrderPositionDAOImplTest {
         OrderPosition orderPosition = new OrderPosition();
         orderPosition.setAmount(150);
         orderPosition.setItem(productDAO.getById(1L).get());
-        orderPositionDAO.create(orderPosition);
+        orderPositionDAO.save(orderPosition);
         orderPosition.setAmount(200);
         OrderPosition updated = orderPositionDAO.update(orderPosition);
         assertNotNull(updated);

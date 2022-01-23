@@ -30,7 +30,7 @@ public class JdbcProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public Product create(Product product) {
+    public Product save(Product product) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {

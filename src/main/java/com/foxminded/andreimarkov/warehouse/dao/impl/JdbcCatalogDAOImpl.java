@@ -30,7 +30,7 @@ public class JdbcCatalogDAOImpl implements CatalogDAO {
     }
 
     @Override
-    public Catalog create(Catalog catalog) {
+    public Catalog save(Catalog catalog) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {

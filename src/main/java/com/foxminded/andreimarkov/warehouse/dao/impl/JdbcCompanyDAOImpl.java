@@ -30,7 +30,7 @@ public class JdbcCompanyDAOImpl implements CompanyDAO {
     }
 
     @Override
-    public Company create(Company company) {
+    public Company save(Company company) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {

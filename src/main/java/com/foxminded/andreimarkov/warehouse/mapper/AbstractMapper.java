@@ -2,7 +2,6 @@ package com.foxminded.andreimarkov.warehouse.mapper;
 
 import com.foxminded.andreimarkov.warehouse.dto.AbstractDTO;
 import com.foxminded.andreimarkov.warehouse.model.AbstractEntity;
-import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 

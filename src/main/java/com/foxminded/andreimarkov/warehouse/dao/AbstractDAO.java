@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface AbstractDAO<T> {
 
-    T create(T t);
+    T save(T t);
 
     Optional<T> getById(Long id);
 

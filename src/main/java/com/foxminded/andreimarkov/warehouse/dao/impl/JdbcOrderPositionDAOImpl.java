@@ -29,7 +29,7 @@ public class JdbcOrderPositionDAOImpl implements OrderPositionDAO {
     private static final String SQL_INSERT_ORDERPOSITION = "insert into schema.orderposition (amount, product_id) values(?,?);";
 
     @Override
-    public OrderPosition create(OrderPosition orderPosition) {
+    public OrderPosition save(OrderPosition orderPosition) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {

@@ -1,12 +1,10 @@
 package com.foxminded.andreimarkov.warehouse.dao.impl;
 
 import com.foxminded.andreimarkov.warehouse.model.Catalog;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
@@ -22,10 +20,10 @@ class JdbcCatalogDAOImplTest {
     private JdbcCatalogDAOImpl repository;
 
     @Test
-    void create() {
+    void save() {
         Catalog catalog = new Catalog();
         catalog.setName("halogen lamps");
-        repository.create(catalog);
+        repository.save(catalog);
         assertNotNull(catalog);
         assertNotNull(catalog.getId());
         assertEquals("halogen lamps",catalog.getName());
@@ -48,7 +46,7 @@ class JdbcCatalogDAOImplTest {
     void update() {
         Catalog catalog = new Catalog();
         catalog.setName("lamps");
-        repository.create(catalog);
+        repository.save(catalog);
         catalog.setName("led lamps");
         Catalog updated = repository.update(catalog);
         assertNotNull(updated);
