@@ -2,13 +2,13 @@ package com.foxminded.andreimarkov.warehouse.service.impl;
 
 import com.foxminded.andreimarkov.warehouse.dao.impl.JdbcPersonDAOImpl;
 import com.foxminded.andreimarkov.warehouse.dto.PersonDTO;
-import com.foxminded.andreimarkov.warehouse.mapper.PersonMapper;
 import com.foxminded.andreimarkov.warehouse.model.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.modelmapper.ModelMapper;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
@@ -20,22 +20,25 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 class PersonServiceImplTest {
 
+    private PersonDTO personDTO;
+    private Person person;
+
     @Mock
     private JdbcPersonDAOImpl personDAO;
 
     @Mock
-    private PersonMapper mapper;
-    private PersonDTO personDTO = new PersonDTO();
-    private Person person = new Person();
+    private ModelMapper mapper;
 
     @InjectMocks
     private PersonServiceImpl personService;
 
     @BeforeEach
     void setUp() {
-        when(mapper.toEntity(any())).thenReturn(person);
-        when(mapper.toDto(any())).thenReturn(personDTO);
-        personDTO.setId(1L);
+        person = new Person();
+        personDTO = new PersonDTO();
+        when(mapper.map(any(),any())).thenReturn(person);
+        when(mapper.map(any(),any())).thenReturn(personDTO);
+        personDTO.setId(10000L);
         personDTO.setFirstName("First");
         personDTO.setSurName("Last");
         personDTO.setAddress("some street");
@@ -45,6 +48,7 @@ class PersonServiceImplTest {
 
     @Test
     void save() {
+//        when(personDAO.save(any())).thenReturn(new Person());
         personService.save(personDTO);
         verify(personDAO, only()).save(any(Person.class));
     }
@@ -78,7 +82,7 @@ class PersonServiceImplTest {
 
     @Test
     void delete() {
-        person.setId(1L);
+        person.setId(10000L);
         when(personDAO.getById(anyLong())).thenReturn(Optional.of(person));
         personService.delete(personDTO.getId());
         verify(personDAO,times(1)).delete(person.getId());

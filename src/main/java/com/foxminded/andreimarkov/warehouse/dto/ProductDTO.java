@@ -3,7 +3,7 @@ package com.foxminded.andreimarkov.warehouse.dto;
 import lombok.Data;
 
 @Data
-public class ProductDTO extends AbstractDTO {
+public class ProductDTO {
     private Long id;
     private String code;
     private String name;

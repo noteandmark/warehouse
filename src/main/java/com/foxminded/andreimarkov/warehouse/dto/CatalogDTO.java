@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CatalogDTO extends AbstractDTO {
+public class CatalogDTO {
     private Long id;
     private String name;
     private List<CatalogDTO> group;

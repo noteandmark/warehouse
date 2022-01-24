@@ -5,7 +5,7 @@ import lombok.*;
 import java.util.List;
 
 @Data
-public class Catalog extends AbstractEntity {
+public class Catalog {
     private Long id;
     private String name;
     private List<Catalog> group;
