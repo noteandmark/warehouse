@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,7 @@ public class JdbcOrderDAOImpl implements OrderDAO {
     private static final String SQL_INSERT_ORDER = "insert into schema.orders (status, date) values(?,?);";
 
     @Override
-    public Order create(Order order) {
+    public Order save(Order order) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {

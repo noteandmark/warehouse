@@ -30,7 +30,7 @@ public class JdbcPersonDAOImpl implements PersonDAO {
     private static final String SQL_INSERT_PERSON = "insert into schema.person(first_name, sur_name, balance, address, phone) values(?,?,?,?,?);";
 
     @Override
-    public Person create(Person person) {
+    public Person save(Person person) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {

@@ -20,11 +20,11 @@ class JdbcOrderDAOImplTest {
     private JdbcOrderDAOImpl repository;
 
     @Test
-    void create() {
+    void save() {
         Order order = new Order();
         order.setStatus("not_processed");
         order.setDate("09-01-2022 19:14:00");
-        repository.create(order);
+        repository.save(order);
         assertNotNull(order);
         assertNotNull(order.getId());
         assertEquals("not_processed",order.getStatus());
@@ -48,7 +48,7 @@ class JdbcOrderDAOImplTest {
         Order order = new Order();
         order.setStatus("not_processed");
         order.setDate("10-01-2022 10:00:00");
-        repository.create(order);
+        repository.save(order);
         order.setStatus("processed");
         order.setDate("10-01-2022 11:00:00");
         Order updated = repository.update(order);

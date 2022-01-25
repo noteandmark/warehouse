@@ -20,14 +20,14 @@ class JdbcProductDAOImplTest {
     private JdbcProductDAOImpl repository;
 
     @Test
-    void create() {
+    void save() {
         Product product = new Product();
         product.setCode("350790");
         product.setName("Magnum WPF 2*18w");
         product.setDescription("fluorescent light bulb T8");
         product.setQuantity(22);
         product.setPrice(1500);
-        repository.create(product);
+        repository.save(product);
         assertNotNull(product);
         assertNotNull(product.getId());
         assertEquals("Magnum WPF 2*18w",product.getName());
@@ -54,7 +54,7 @@ class JdbcProductDAOImplTest {
         product.setDescription("fluorescent light bulb T8");
         product.setQuantity(22);
         product.setPrice(1500);
-        repository.create(product);
+        repository.save(product);
         product.setName("Magnum fluorescent WPF 2*18w");
         Product updated = repository.update(product);
         assertNotNull(updated);

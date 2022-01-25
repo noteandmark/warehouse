@@ -20,13 +20,13 @@ class JdbcCompanyDAOImplTest {
     private JdbcCompanyDAOImpl repository;
 
     @Test
-    void create() {
+    void save() {
         Company company = new Company();
         company.setName("New Industry Tech");
         company.setBalance(1300);
         company.setAddress("75, Lincoln drive");
         company.setPhone("3807772233");
-        repository.create(company);
+        repository.save(company);
         assertNotNull(company);
         assertNotNull(company.getId());
         assertEquals("New Industry Tech",company.getName());
@@ -52,7 +52,7 @@ class JdbcCompanyDAOImplTest {
         company.setBalance(300);
         company.setAddress("5, Foo drive");
         company.setPhone("70801112233");
-        repository.create(company);
+        repository.save(company);
         company.setName("IBC NEW");
         Company updated = repository.update(company);
         assertNotNull(updated);
