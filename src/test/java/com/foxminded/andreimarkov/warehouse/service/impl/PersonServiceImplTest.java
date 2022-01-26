@@ -20,11 +20,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 class PersonServiceImplTest {
 
-    private PersonDTO personDTO;
-    private Person person;
-
     @Mock
     private JdbcPersonDAOImpl personDAO;
+    private PersonDTO personDTO;
+    private Person person;
 
     @Mock
     private ModelMapper mapper;
@@ -34,10 +33,10 @@ class PersonServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        person = new Person();
         personDTO = new PersonDTO();
-        when(mapper.map(any(),any())).thenReturn(person);
-        when(mapper.map(any(),any())).thenReturn(personDTO);
+        person  = new Person();
+        when(mapper.map(personDTO,Person.class)).thenReturn(person);
+        when(mapper.map(person,PersonDTO.class)).thenReturn(personDTO);
         personDTO.setId(10000L);
         personDTO.setFirstName("First");
         personDTO.setSurName("Last");
@@ -48,7 +47,7 @@ class PersonServiceImplTest {
 
     @Test
     void save() {
-//        when(personDAO.save(any())).thenReturn(new Person());
+        when(personDAO.save(any())).thenReturn(new Person());
         personService.save(personDTO);
         verify(personDAO, only()).save(any(Person.class));
     }
@@ -61,14 +60,14 @@ class PersonServiceImplTest {
 
     @Test
     void getById() {
-        person.setId(1L);
+        person.setId(10000L);
         person.setFirstName("First");
         person.setSurName("Last");
         person.setAddress("some street");
         person.setPhone("111-22-33");
         person.setBalance(0);
-        when(personDAO.getById(anyLong())).thenReturn(Optional.of(person));
-        Optional<PersonDTO> actual = personService.getById(1L);
+        when(personDAO.getById(anyLong())).thenReturn(Optional.ofNullable(person));
+        Optional<PersonDTO> actual = personService.getById(10000L);
         assertEquals(personDTO, actual.get());
     }
 
