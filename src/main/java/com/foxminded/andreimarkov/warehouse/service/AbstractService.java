@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AbstractService<T> {
 
-    T save(PersonDTO t);
+    T save(T t);
 
     List<T> findAll();
 

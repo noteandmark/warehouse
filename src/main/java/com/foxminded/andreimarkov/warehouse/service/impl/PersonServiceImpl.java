@@ -6,11 +6,13 @@ import com.foxminded.andreimarkov.warehouse.model.Person;
 import com.foxminded.andreimarkov.warehouse.service.PersonService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Service
 public class PersonServiceImpl implements PersonService {
 
     private final JdbcPersonDAOImpl personDAO;
@@ -36,8 +38,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Optional<PersonDTO> getById(long id) {
-        Person byId = personDAO.getById(id).get();
-        return Optional.ofNullable(mapper.map(byId, PersonDTO.class));
+        Person personById = personDAO.getById(id).get();
+        PersonDTO personDTO = mapper.map(personById, PersonDTO.class);
+        return Optional.ofNullable(personDTO);
     }
 
     @Override
@@ -52,10 +55,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     private List<PersonDTO> mapListOfEntityToDTO(List<Person> all) {
-        List<PersonDTO> personList = new ArrayList<>();
-        for (Person person : all) {
-            personList.add(mapper.map(person, PersonDTO.class));
-        }
-        return personList;
+        return all.stream().map(person -> mapper.map(person,PersonDTO.class))
+                .collect(Collectors.toList());
     }
 }
