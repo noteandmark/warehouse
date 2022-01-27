@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS schema.orderposition_order
 CREATE TABLE IF NOT EXISTS schema.catalog
 (
     id         bigserial,
-    name        varchar(255),
+    name       varchar(255),
     product_id bigint,
     FOREIGN KEY (product_id) REFERENCES schema.product (id) on delete cascade,
     PRIMARY KEY (id)
@@ -107,6 +107,7 @@ CREATE TABLE IF NOT EXISTS schema.location_product
 CREATE TABLE IF NOT EXISTS schema.warehouse
 (
     id      bigserial,
+    name    varchar(255),
     root_id bigint,
     FOREIGN KEY (root_id) REFERENCES schema.catalog (id) on delete cascade,
     PRIMARY KEY (id)

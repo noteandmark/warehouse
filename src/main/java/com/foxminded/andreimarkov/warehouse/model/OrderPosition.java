@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class OrderPosition {
     private Long id;
-    private Product item;
+    private Product product;
     private int amount;
 }
