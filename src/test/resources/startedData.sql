@@ -11,3 +11,5 @@ insert into schema.location (warehouse_name, shelf_number) values ('90 warehouse
 insert into schema.orders (status, date) values ('not_processed','08-01-2022 18:00:00');
 
 insert into schema.orderposition (amount, product_id) values (100, 1);
+
+insert into schema.warehouse (name) values ('main');

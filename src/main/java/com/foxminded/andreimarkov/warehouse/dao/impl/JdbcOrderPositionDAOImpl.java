@@ -8,11 +8,13 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class JdbcOrderPositionDAOImpl implements OrderPositionDAO {
 
     private final JdbcTemplate jdbcTemplate;
@@ -36,7 +38,7 @@ public class JdbcOrderPositionDAOImpl implements OrderPositionDAO {
                     PreparedStatement ps =
                             connection.prepareStatement(SQL_INSERT_ORDERPOSITION, new String[]{"id"});
                     ps.setInt(1, orderPosition.getAmount());
-                    ps.setLong(2, orderPosition.getItem().getId());
+                    ps.setLong(2, orderPosition.getProduct().getId());
                     return ps;
                 },
                 keyHolder);
@@ -61,7 +63,7 @@ public class JdbcOrderPositionDAOImpl implements OrderPositionDAO {
 
     @Override
     public OrderPosition update(OrderPosition orderPosition) {
-        jdbcTemplate.update(SQL_UPDATE_ORDERPOSITION, orderPosition.getAmount(), orderPosition.getItem().getId(), orderPosition.getId());
+        jdbcTemplate.update(SQL_UPDATE_ORDERPOSITION, orderPosition.getAmount(), orderPosition.getProduct().getId(), orderPosition.getId());
         return orderPosition;
     }
 

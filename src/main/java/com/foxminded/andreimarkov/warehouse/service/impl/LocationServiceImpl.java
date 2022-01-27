@@ -6,11 +6,13 @@ import com.foxminded.andreimarkov.warehouse.model.Location;
 import com.foxminded.andreimarkov.warehouse.service.LocationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class LocationServiceImpl implements LocationService {
 
     private final JdbcLocationDAOImpl locationDAO;
