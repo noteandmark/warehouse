@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,6 +55,9 @@ class CompanyServiceImplTest {
 
     @Test
     void findAll() {
+        List<Company> all = new ArrayList<>();
+        all.add(company);
+        when(companyDAO.findAll()).thenReturn(all);
         companyService.findAll();
         verify(companyDAO, only()).findAll();
     }

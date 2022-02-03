@@ -2,6 +2,7 @@ package com.foxminded.andreimarkov.warehouse.dao.impl;
 
 import com.foxminded.andreimarkov.warehouse.dao.PersonDAO;
 import com.foxminded.andreimarkov.warehouse.model.Person;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Slf4j
 public class JdbcPersonDAOImpl implements PersonDAO {
 
     private final JdbcTemplate jdbcTemplate;
@@ -31,6 +33,7 @@ public class JdbcPersonDAOImpl implements PersonDAO {
 
     @Override
     public Person save(Person person) {
+        log.debug("save person");
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {
@@ -45,32 +48,39 @@ public class JdbcPersonDAOImpl implements PersonDAO {
                 },
                 keyHolder);
         person.setId(keyHolder.getKey().longValue());
+        log.debug("person {} saved", person.getFirstName() + person.getSurName());
         return person;
     }
 
     @Override
     public List<Person> findAll() {
+        log.debug("getting list of persons in findAll");
         return jdbcTemplate.query(SQL_GET_ALL, new BeanPropertyRowMapper<Person>(Person.class));
     }
 
     @Override
     public Optional<Person> getById(Long id) {
         try {
+            log.debug("try to get person by id {}", id);
             return Optional.of(jdbcTemplate.queryForObject(SQL_FIND_PERSON,
                     new BeanPropertyRowMapper<Person>(Person.class),id));
         } catch (EmptyResultDataAccessException e) {
+            log.error("get error: empty result, return optional.empty",e.getLocalizedMessage());
             return Optional.empty();
         }
     }
 
     @Override
     public Person update(Person person) {
+        log.debug("update person");
         jdbcTemplate.update(SQL_UPDATE_PERSON, person.getFirstName(), person.getSurName(), person.getBalance(), person.getAddress(), person.getPhone(),person.getId());
+        log.debug("person {} updated",person.getFirstName() + person.getSurName());
         return person;
     }
 
     @Override
     public int delete(Long id) {
+        log.debug("person location by id {}",id);
         return jdbcTemplate.update(SQL_DELETE_PERSON, id);
     }
 

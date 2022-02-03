@@ -2,6 +2,7 @@ package com.foxminded.andreimarkov.warehouse.dao.impl;
 
 import com.foxminded.andreimarkov.warehouse.dao.LocationDAO;
 import com.foxminded.andreimarkov.warehouse.model.Location;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Slf4j
 public class JdbcLocationDAOImpl implements LocationDAO {
 
     private final JdbcTemplate jdbcTemplate;
@@ -32,6 +34,7 @@ public class JdbcLocationDAOImpl implements LocationDAO {
 
     @Override
     public Location save(Location location) {
+        log.debug("save location");
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {
@@ -43,32 +46,39 @@ public class JdbcLocationDAOImpl implements LocationDAO {
                 },
                 keyHolder);
         location.setId(keyHolder.getKey().longValue());
+        log.debug("location {} saved", location.getWarehouseName());
         return location;
     }
 
     @Override
     public List<Location> findAll() {
+        log.debug("getting list of locations in findAll");
         return jdbcTemplate.query(SQL_GET_ALL, new BeanPropertyRowMapper<Location>(Location.class));
     }
 
     @Override
     public Optional<Location> getById(Long id) {
         try {
+            log.debug("try to get location by id {}", id);
             return Optional.of(jdbcTemplate.queryForObject(SQL_FIND_LOCATION,
                     new BeanPropertyRowMapper<Location>(Location.class), id));
         } catch (EmptyResultDataAccessException e) {
+            log.error("get error: empty result, return optional.empty",e.getLocalizedMessage());
             return Optional.empty();
         }
     }
 
     @Override
     public Location update(Location location) {
+        log.debug("update location");
         jdbcTemplate.update(SQL_UPDATE_LOCATION, location.getWarehouseName(), location.getShelfNumber(), location.getId());
+        log.debug("location {} updated",location.getWarehouseName());
         return location;
     }
 
     @Override
     public int delete(Long id) {
+        log.debug("delete location by id {}",id);
         return jdbcTemplate.update(SQL_DELETE_LOCATION, id);
     }
 

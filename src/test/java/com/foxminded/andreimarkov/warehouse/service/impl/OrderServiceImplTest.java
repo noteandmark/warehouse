@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,6 +54,9 @@ class OrderServiceImplTest {
 
     @Test
     void findAll() {
+        List<Order> all = new ArrayList<>();
+        all.add(order);
+        when(orderDAO.findAll()).thenReturn(all);
         orderService.findAll();
         verify(orderDAO, only()).findAll();
     }
