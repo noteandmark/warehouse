@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,6 +62,9 @@ class OrderPositionServiceImplTest {
 
     @Test
     void findAll() {
+        List<OrderPosition> all = new ArrayList<>();
+        all.add(orderPosition);
+        when(orderPositionDAO.findAll()).thenReturn(all);
         orderPositionService.findAll();
         verify(orderPositionDAO, only()).findAll();
     }

@@ -2,6 +2,7 @@ package com.foxminded.andreimarkov.warehouse.dao.impl;
 
 import com.foxminded.andreimarkov.warehouse.dao.CatalogDAO;
 import com.foxminded.andreimarkov.warehouse.model.Catalog;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Slf4j
 public class JdbcCatalogDAOImpl implements CatalogDAO {
-    private static final Logger logger = LoggerFactory.getLogger(JdbcCatalogDAOImpl.class);
     private final JdbcTemplate jdbcTemplate;
 
     private static final String SQL_FIND_CATALOG = "select id,name from schema.catalog where id = ?";
@@ -34,7 +35,7 @@ public class JdbcCatalogDAOImpl implements CatalogDAO {
 
     @Override
     public Catalog save(Catalog catalog) {
-        logger.debug("save catalog");
+        log.debug("save catalog");
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {
@@ -45,39 +46,39 @@ public class JdbcCatalogDAOImpl implements CatalogDAO {
                 },
                 keyHolder);
         catalog.setId(keyHolder.getKey().longValue());
-        logger.debug("catalog {} saved", catalog.getName());
+        log.debug("catalog {} saved", catalog.getName());
         return catalog;
     }
 
     @Override
     public List<Catalog> findAll() {
-        logger.debug("getting list of catalogs in findAll");
+        log.debug("getting list of catalogs in findAll");
         return jdbcTemplate.query(SQL_GET_ALL, new BeanPropertyRowMapper<>(Catalog.class));
     }
 
     @Override
     public Optional<Catalog> getById(Long id) {
         try {
-            logger.debug("try to get catalog by id {}", id);
+            log.debug("try to get catalog by id {}", id);
             return Optional.of(jdbcTemplate.queryForObject(SQL_FIND_CATALOG,
                     new BeanPropertyRowMapper<>(Catalog.class), id));
         } catch (EmptyResultDataAccessException e) {
-            logger.error("get error: empty result, return optional.empty",e.getLocalizedMessage());
+            log.error("get error: empty result, return optional.empty",e.getLocalizedMessage());
             return Optional.empty();
         }
     }
 
     @Override
     public Catalog update(Catalog catalog) {
-        logger.debug("update catalog");
+        log.debug("update catalog");
         jdbcTemplate.update(SQL_UPDATE_CATALOG, catalog.getName(),catalog.getId());
-        logger.debug("catalog updated");
+        log.debug("catalog {} updated",catalog.getName());
         return catalog;
     }
 
     @Override
     public int delete(Long id) {
-        logger.debug("delete catalog by id {}",id);
+        log.debug("delete catalog by id {}",id);
         return jdbcTemplate.update(SQL_DELETE_CATALOG, id);
     }
 

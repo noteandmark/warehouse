@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -68,6 +70,9 @@ class ProductServiceImplTest {
 
     @Test
     void findAll() {
+        List<Product> all = new ArrayList<>();
+        all.add(product);
+        when(productDAO.findAll()).thenReturn(all);
         productService.findAll();
         verify(productDAO, only()).findAll();
     }

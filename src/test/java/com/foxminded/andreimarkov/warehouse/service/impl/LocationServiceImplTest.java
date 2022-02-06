@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,6 +53,9 @@ class LocationServiceImplTest {
 
     @Test
     void findAll() {
+        List<Location> all = new ArrayList<>();
+        all.add(location);
+        when(locationDAO.findAll()).thenReturn(all);
         locationService.findAll();
         verify(locationDAO, only()).findAll();
     }

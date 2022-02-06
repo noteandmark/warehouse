@@ -2,6 +2,7 @@ package com.foxminded.andreimarkov.warehouse.dao.impl;
 
 import com.foxminded.andreimarkov.warehouse.dao.WarehouseDAO;
 import com.foxminded.andreimarkov.warehouse.model.Warehouse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Slf4j
 public class JdbcWarehouseDAOImpl implements WarehouseDAO {
     private final JdbcTemplate jdbcTemplate;
 
@@ -31,6 +33,7 @@ public class JdbcWarehouseDAOImpl implements WarehouseDAO {
 
     @Override
     public Warehouse save(Warehouse warehouse) {
+        log.debug("save warehouse");
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {
@@ -41,32 +44,39 @@ public class JdbcWarehouseDAOImpl implements WarehouseDAO {
                 },
                 keyHolder);
         warehouse.setId(keyHolder.getKey().longValue());
+        log.debug("warehouse {} saved", warehouse.getName());
         return warehouse;
     }
 
     @Override
     public List<Warehouse> findAll() {
+        log.debug("getting list of warehouses in findAll");
         return jdbcTemplate.query(SQL_GET_ALL, new BeanPropertyRowMapper<>(Warehouse.class));
     }
 
     @Override
     public Optional<Warehouse> getById(Long id) {
         try {
+            log.debug("try to get product by id {}", id);
             return Optional.of(jdbcTemplate.queryForObject(SQL_FIND_WAREHOUSE,
                     new BeanPropertyRowMapper<>(Warehouse.class), id));
         } catch (EmptyResultDataAccessException e) {
+            log.error("get error: empty result, return optional.empty",e.getLocalizedMessage());
             return Optional.empty();
         }
     }
 
     @Override
     public Warehouse update(Warehouse warehouse) {
+        log.debug("update warehouse");
         jdbcTemplate.update(SQL_UPDATE_WAREHOUSE, warehouse.getName(),warehouse.getId());
+        log.debug("warehouse {} updated",warehouse.getName());
         return warehouse;
     }
 
     @Override
     public int delete(Long id) {
+        log.debug("delete warehouse by id {}",id);
         return jdbcTemplate.update(SQL_DELETE_WAREHOUSE, id);
     }
 

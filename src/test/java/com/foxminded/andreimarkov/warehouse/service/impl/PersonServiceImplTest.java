@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -54,6 +56,9 @@ class PersonServiceImplTest {
 
     @Test
     void findAll() {
+        List<Person> all = new ArrayList<>();
+        all.add(person);
+        when(personDAO.findAll()).thenReturn(all);
         personService.findAll();
         verify(personDAO, only()).findAll();
     }
