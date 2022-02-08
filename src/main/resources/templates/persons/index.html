@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+
+    <h1 th:text="'List of Persons'">List of Persons...</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Balance</th>
+            <th>Address</th>
+            <th>Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person : ${persons}">
+            <td th:text="${person.id}">1</td>
+            <td th:text="${person.firstName}">Joe</td>
+            <td th:text="${person.surName}">Buck</td>
+            <td th:text="${person.balance}">100</td>
+            <td th:text="${person.address}">Valley Str.,277</td>
+            <td th:text="${person.phone}">+3807178866</td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

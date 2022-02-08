@@ -18,6 +18,7 @@
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
         <slf4j.version>1.7.33</slf4j.version>
         <logback.version>1.2.10</logback.version>
+        <bootstrap.version>4.0.0-2</bootstrap.version>
     </properties>
     <dependencies>
         <dependency>
@@ -40,6 +41,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
