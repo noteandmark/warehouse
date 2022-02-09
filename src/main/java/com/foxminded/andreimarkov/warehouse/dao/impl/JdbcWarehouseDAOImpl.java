@@ -23,7 +23,7 @@ public class JdbcWarehouseDAOImpl implements WarehouseDAO {
     private static final String SQL_FIND_WAREHOUSE = "select id,name from schema.warehouse where id = ?";
     private static final String SQL_DELETE_WAREHOUSE = "delete from schema.warehouse where id = ?";
     private static final String SQL_UPDATE_WAREHOUSE = "update schema.warehouse set name = ? where id = ?";
-    private static final String SQL_GET_ALL = "select name from schema.warehouse";
+    private static final String SQL_GET_ALL = "select id,name from schema.warehouse";
     private static final String SQL_INSERT_WAREHOUSE = "insert into schema.warehouse(name) values(?);";
 
     @Autowired

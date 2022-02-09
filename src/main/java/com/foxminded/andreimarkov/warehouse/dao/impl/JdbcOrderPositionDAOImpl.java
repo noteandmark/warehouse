@@ -29,7 +29,7 @@ public class JdbcOrderPositionDAOImpl implements OrderPositionDAO {
     private static final String SQL_FIND_ORDERPOSITION = "select id,amount, product_id from schema.orderposition where id = ?";
     private static final String SQL_DELETE_ORDERPOSITION = "delete from schema.orderposition where id = ?";
     private static final String SQL_UPDATE_ORDERPOSITION = "update schema.orderposition set amount = ?, product_id = ? where id = ?";
-    private static final String SQL_GET_ALL = "select amount, product_id from schema.orderposition";
+    private static final String SQL_GET_ALL = "select id,amount, product_id from schema.orderposition";
     private static final String SQL_INSERT_ORDERPOSITION = "insert into schema.orderposition (amount, product_id) values(?,?);";
 
     @Override
