@@ -11,11 +11,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest
+@WebMvcTest(PersonController.class)
 class PersonControllerTest {
 
     @Autowired
@@ -28,7 +29,7 @@ class PersonControllerTest {
     private PersonServiceImpl personService;
 
     @Test
-    void listPersons_whenGetPersons_thenStatus200() throws Exception {
+    void listPersons_whenGetPersons_thenShouldReturnModel() throws Exception {
 
         PersonDTO personDTO = new PersonDTO();
         personDTO.setId(10000L);
@@ -46,10 +47,10 @@ class PersonControllerTest {
         personDTO2.setPhone("111-22-34");
         personDTO2.setBalance(1);
 
-        Mockito.when(personService.findAll()).thenReturn(Arrays.asList(personDTO, personDTO2));
-        mockMvc.perform(
-                        get("/persons"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(Arrays.asList(personDTO, personDTO2))));
+        List<PersonDTO> all = Arrays.asList(personDTO, personDTO2);
+        Mockito.when(personService.findAll()).thenReturn(all);
+        mockMvc.perform(get("/persons"))
+                .andExpect(model().attribute("persons",all));
     }
+
 }

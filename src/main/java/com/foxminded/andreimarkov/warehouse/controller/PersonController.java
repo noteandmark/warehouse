@@ -19,9 +19,13 @@ public class PersonController {
     }
 
     @GetMapping({"", "/index","/index.html"})
-    public String listPersons (Model model) {
-        model.addAttribute("persons",personService.findAll());
+    public String pagePersons () {
         return "persons/index";
     }
 
+    @GetMapping({"/get-all","get-all.html"})
+    public String listPersons (Model model) {
+        model.addAttribute("persons",personService.findAll());
+        return "persons/get-all";
+    }
 }
