@@ -1,5 +1,6 @@
 package com.foxminded.andreimarkov.warehouse.controller;
 
+import com.foxminded.andreimarkov.warehouse.dto.PersonDTO;
 import com.foxminded.andreimarkov.warehouse.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,5 +28,10 @@ public class PersonController {
     public String listPersons (Model model) {
         model.addAttribute("persons",personService.findAll());
         return "persons/get-all";
+    }
+
+    @GetMapping("/signup")
+    public String showSignUpForm(PersonDTO personDTO) {
+        return "persons/add-person";
     }
 }

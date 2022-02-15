@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomepageController {
 
     @RequestMapping({"","/", "/index","/index.html"})
-    public String menuPage() {
+    public String getIndexPage() {
         return "index";
     }
 
