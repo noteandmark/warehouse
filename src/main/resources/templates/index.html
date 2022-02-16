@@ -18,40 +18,7 @@
     <script src="https://kit.fontawesome.com/1051ca72c4.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<!-- Nav bar -->
-<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
-    <div class="container-fluid">
-        <a href="#" class="navbar-brand"><img src="/images/warehouse_logo.png"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto" id="navbarMenu">
-                <li class="nav-item active">
-                    <a href="#" class="nav-link">Home page</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Get catalog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Item cost</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Item amount</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Get order</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/persons/index.html" class="nav-link">Get person</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Get company</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:insert="~{fragments/layout :: header-fragment}"></div>
 <!-- main block -->
 <div class="container-fluid">
     <h1 th:text="'Warehouse Menu Page'">Warehouse Web Application</h1>
@@ -66,21 +33,6 @@
     </div>
     <hr/>
 </div>
-<!-- footer -->
-<footer class="container-fluid">
-    <div class="container">
-        <div class="row padding text-center">
-            <div class="col-12">
-                <h2>Contacts</h2>
-            </div>
-            <div class="col-12 social padding">
-                <a href="https://www.instagram.com/foxminded.ua/"><i class="fab fa-instagram"></i></a>
-                <a href="https://foxminded.ua/"><i class="fa-solid fa-location-pin"></i></a>
-                <a href="https://www.youtube.com/c/SergeyNemchinskiy"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.facebook.com/foxmindedco/"><i class="fab fa-facebook"></i></a>
-            </div>
-        </div>
-    </div>
-</footer>
+<div th:insert="~{fragments/layout :: footer-fragment}"></div>
 </body>
 </html>

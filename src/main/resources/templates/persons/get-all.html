@@ -14,6 +14,7 @@
     <script src="https://kit.fontawesome.com/1051ca72c4.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<div th:insert="~{fragments/layout :: header-fragment}"></div>
 <div class="container-fluid" th:switch="${persons}">
     <h2 th:case="null">No persons yet!</h2>
     <div th:case="*">
@@ -33,20 +34,23 @@
                 </thead>
                 <tbody>
                 <tr th:each="person : ${persons}">
-                    <td th:text="${person.firstName}">Joe</td>
-                    <td th:text="${person.surName}">Buck</td>
-                    <td th:text="${person.balance}">100</td>
-                    <td th:text="${person.address}">Valley Str.,277</td>
-                    <td th:text="${person.phone}">+3807178866</td>
-                    <td><a th:href="@{/edit/{id}(id=${person.id})}">Edit</a></td>
-                    <td><a th:href="@{/delete/{id}(id=${person.id})}">Delete</a></td>
+                    <td th:text="${person.firstName}" style="width: 150px">Joe</td>
+                    <td th:text="${person.surName}" style="width: 150px">Buck</td>
+                    <td th:text="${person.balance}" style="text-align: center">100</td>
+                    <td th:text="${person.address}" style="width: 150px">Valley Str.,277</td>
+                    <td th:text="${person.phone}" style="width: 100px">+3807178866</td>
+                    <td style="width: 50px"><a th:href="@{/edit/{id}(id=${person.id})}">Edit</a></td>
+                    <td style="width: 50px"><a th:href="@{/delete/{id}(id=${person.id})}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <hr/>
-    <p class="my-5"><a href="/signup" class="btn btn-primary"><i class="fas fa-user-plus ml-2"></i></a></p>
+    <p class="my-5"><a href="/add" class="btn btn-primary">Add new person <i class="fas fa-user-plus ml-2"></i></a></p>
+    <hr/>
+    <i class="fa-solid fa-hand-point-left"></i>
+    <a href="/persons/index.html">Go back</a>
 </div>
 <!--<div class="container-fluid">-->
 <!--    <h1 th:text="'List of Persons'">List of Persons...</h1>-->
@@ -81,6 +85,6 @@
 <!--    <i class="fa-solid fa-hand-point-left"></i>-->
 <!--    <a href="/persons/index.html">Go back</a>-->
 <!--</div>-->
-
+<div th:insert="~{fragments/layout :: footer-fragment}"></div>
 </body>
 </html>

@@ -30,7 +30,7 @@ public class PersonController {
         return "persons/get-all";
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/add")
     public String showSignUpForm(PersonDTO personDTO) {
         return "persons/add-person";
     }

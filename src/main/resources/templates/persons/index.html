@@ -14,6 +14,7 @@
     <script src="https://kit.fontawesome.com/1051ca72c4.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<div th:insert="~{fragments/layout :: header-fragment}"></div>
     <h1 th:text="'Persons page navigation'">Persons page navigation...</h1>
     <br />
     <div class="container">
@@ -25,5 +26,6 @@
     <hr/>
     <i class="fa-solid fa-hand-point-left"></i>
     <a href="/index.html">Go back</a>
+<div th:insert="~{fragments/layout :: footer-fragment}"></div>
 </body>
 </html>
