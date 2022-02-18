@@ -1,5 +1,7 @@
 package com.foxminded.andreimarkov.warehouse.listener;
 
+import com.foxminded.andreimarkov.warehouse.exceptions.ServiceException;
+import com.foxminded.andreimarkov.warehouse.service.impl.WarehouseServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -25,9 +27,11 @@ public class JdbcDataSourceListener implements ApplicationListener<ContextRefres
     private static final String SQL_FILE = "startedData.sql";
     private final DataSource dataSource;
     private ApplicationContext applicationContext;
+    private final WarehouseServiceImpl warehouseService;
 
     @Autowired
-    public JdbcDataSourceListener(DataSource dataSource) {
+    public JdbcDataSourceListener(DataSource dataSource, WarehouseServiceImpl warehouseService) {
+        this.warehouseService = warehouseService;
         Assert.notNull(dataSource, "DataSource must not be null!");
         this.dataSource = dataSource;
     }
@@ -42,7 +46,14 @@ public class JdbcDataSourceListener implements ApplicationListener<ContextRefres
         if (!event.getApplicationContext().equals(applicationContext)) {
             return;
         }
+        try {
+            int count = warehouseService.findAll().size();
+        } catch (ServiceException e) {
+            loadStartUpData();
+        }
+    }
 
+    private void loadStartUpData() {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.setScripts(new Resource[]{new ClassPathResource(SQL_FILE)});
         DatabasePopulatorUtils.execute(populator, dataSource);
