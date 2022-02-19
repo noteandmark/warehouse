@@ -12,7 +12,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -29,7 +32,7 @@ class PersonControllerTest {
     private PersonServiceImpl personService;
 
     @Test
-    void listPersons_whenGetPersons_thenShouldReturnModel() throws Exception {
+    void listPersons_whenGetAllPersons_thenShouldReturnModel() throws Exception {
 
         PersonDTO personDTO = new PersonDTO();
         personDTO.setId(10000L);
@@ -48,9 +51,24 @@ class PersonControllerTest {
         personDTO2.setBalance(1);
 
         List<PersonDTO> all = Arrays.asList(personDTO, personDTO2);
-        Mockito.when(personService.findAll()).thenReturn(all);
-        mockMvc.perform(get("/persons"))
+
+        when(personService.findAll()).thenReturn(all);
+        mockMvc.perform(get("/persons/get-all"))
                 .andExpect(model().attribute("persons",all));
+    }
+
+    @Test
+    void showPersonById_whenGivenId_thenReturnThisPerson() throws Exception {
+        PersonDTO personDTO = new PersonDTO();
+        personDTO.setId(1L);
+        Optional<PersonDTO> personDTOOptional = Optional.of(personDTO);
+
+        when(personService.getById(anyLong())).thenReturn(personDTOOptional);
+
+        mockMvc.perform(get("/persons/view/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("persons/view"))
+                .andExpect(model().attributeExists("person"));
     }
 
 }

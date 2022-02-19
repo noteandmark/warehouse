@@ -14,26 +14,32 @@
 </head>
 <body>
 <div th:insert="~{fragments/layout :: header-fragment}"></div>
+<!--/*@thymesVar id="personDTO" type="com.foxminded.andreimarkov.warehouse.dto.PersonDTO"*/-->
 <form action="#"
-      th:action="@{/persons/update-person/{id}(id=${person.id})}"
-      th:object="${person}"
+      th:action="@{/persons/update-person/{id}(id=${personDTO.id})}"
+      th:object="${personDTO}"
       method="post">
+    <input type="hidden" th:field="*{id}" id="id">
     <label for="firstName">FirstName</label>
-    <input type="text" th:field="*{firstName}" id="firstName" placeholder="FirstName">
+    <input type="text" class="form-control" th:field="*{firstName}" id="firstName" placeholder="FirstName">
     <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
     <label for="surName">Surname</label>
-    <input type="text" th:field="*{surName}" id="surName" placeholder="Surname">
+    <input type="text" class="form-control" th:field="*{surName}" id="surName" placeholder="Surname">
     <span th:if="${#fields.hasErrors('surName')}" th:errors="*{surName}"></span>
     <label for="balance">Balance</label>
-    <input type="text" th:field="*{balance}" id="balance" placeholder="Balance">
+    <input type="text" class="form-control" th:field="*{balance}" id="balance" placeholder="Balance">
     <span th:if="${#fields.hasErrors('balance')}" th:errors="*{balance}"></span>
     <label for="address">Address</label>
-    <input type="text" th:field="*{address}" id="address" placeholder="Address">
+    <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="Address">
     <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
     <label for="address">Phone</label>
-    <input type="text" th:field="*{phone}" id="phone" placeholder="Phone">
+    <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Phone">
     <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
-    <input type="submit" value="Update Person">
+    <div class="row">
+        <div class="col-md-6 mt-5">
+            <input type="submit" class="btn btn-primary" value="Update Person">
+        </div>
+    </div>
 </form>
 <hr/>
 <i class="fa-solid fa-hand-point-left"></i>

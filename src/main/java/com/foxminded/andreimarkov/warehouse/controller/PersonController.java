@@ -6,11 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.jws.WebParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/persons")
 @Controller
@@ -24,25 +21,34 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @GetMapping({"", "/index","/index.html"})
-    public String pagePersons () {
+    @GetMapping({"", "/index", "/index.html"})
+    public String pagePersons() {
         return "persons/index";
     }
 
-    @GetMapping({"/get-all","get-all.html"})
-    public String listPersons (Model model) {
-        model.addAttribute("persons",personService.findAll());
+    @GetMapping({"/get-all","/get-all.html"})
+    public String listPersons(Model model) {
+        model.addAttribute("persons", personService.findAll());
         return "persons/get-all";
     }
 
-    @GetMapping({"/add","/add.html"})
-    public String showSignUpForm(PersonDTO personDTO) {
+    @GetMapping("/add-person")
+    public String newPerson(@ModelAttribute("person") PersonDTO person) {
         return "persons/add-person";
     }
 
-    @GetMapping({"/view/{id}","/view/{id}.html"})
+    @PostMapping("/add-person")
+    public String addUser(PersonDTO person, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "persons/add-person";
+        }
+        personService.save(person);
+        return "redirect:/persons/index";
+    }
+
+    @GetMapping("/view/{id}")
     public String showPersonById(@PathVariable String id, Model model) {
-        model.addAttribute("person",personService.getById(Long.valueOf(id)));
+        model.addAttribute("person", personService.getById(Long.valueOf(id)));
         return "persons/view";
     }
 
@@ -51,8 +57,24 @@ public class PersonController {
         log.debug("start method getById personDTO");
         PersonDTO personDTO = personService.getById(id).get();
         log.info("personDTO = " + personDTO.toString());
-        model.addAttribute("person", personDTO);
+        model.addAttribute("personDTO", personDTO);
         return "persons/update-person";
     }
 
+    @PostMapping("/update-person/{id}")
+    public String updatePerson(@PathVariable("id") long id, @ModelAttribute("person") PersonDTO personDTO,
+                               BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "persons/update-person";
+        }
+        personDTO.setId(id);
+        personService.save(personDTO);
+        return "redirect:/persons/index";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deletePerson(@PathVariable("id") long id, @ModelAttribute("person") PersonDTO personDTO) {
+        personService.delete(id);
+        return "redirect:/persons/index";
+    }
 }
