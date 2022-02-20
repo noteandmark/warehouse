@@ -38,7 +38,7 @@ public class PersonController {
     }
 
     @PostMapping("/add-person")
-    public String addUser(PersonDTO person, BindingResult result, Model model) {
+    public String addPerson(PersonDTO person, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "persons/add-person";
         }
@@ -68,12 +68,12 @@ public class PersonController {
             return "persons/update-person";
         }
         personDTO.setId(id);
-        personService.save(personDTO);
+        personService.update(personDTO);
         return "redirect:/persons/index";
     }
 
     @GetMapping("/delete/{id}")
-    public String deletePerson(@PathVariable("id") long id, @ModelAttribute("person") PersonDTO personDTO) {
+    public String deletePersonById(@PathVariable("id") long id, @ModelAttribute("person") PersonDTO personDTO) {
         personService.delete(id);
         return "redirect:/persons/index";
     }
