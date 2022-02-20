@@ -1,4 +1,6 @@
 TRUNCATE TABLE schema.person RESTART IDENTITY;
+insert into schema.warehouse (name)
+values ('main warehouse');
 insert into schema.person (first_name, sur_name, balance, address, phone)
 values ('Ben', 'Elliot', 10, 'str.Toporkov,12', '3801512633'),
        ('Adrian', 'Anatols', 200, 'str.Luzhnij,88', '3801312233'),

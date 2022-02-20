@@ -28,7 +28,9 @@ public class PersonController {
 
     @GetMapping({"/get-all","/get-all.html"})
     public String listPersons(Model model) {
+        log.debug("start get-all persons");
         model.addAttribute("persons", personService.findAll());
+        log.info("start personService.findAll");
         return "persons/get-all";
     }
 
@@ -40,23 +42,28 @@ public class PersonController {
     @PostMapping("/add-person")
     public String addPerson(PersonDTO person, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            log.error("error in post mapping add-person: " + result.toString());
             return "persons/add-person";
         }
+        log.debug("no error in post mapping add-person");
         personService.save(person);
+        log.info("performed the method personService.save");
         return "redirect:/persons/index";
     }
 
     @GetMapping("/view/{id}")
     public String showPersonById(@PathVariable String id, Model model) {
+        log.debug("Getting view for person id: " + id);
         model.addAttribute("person", personService.getById(Long.valueOf(id)));
+        log.info("add to model person by id: " + id);
         return "persons/view";
     }
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        log.debug("start method getById personDTO");
+        log.debug("start to edit personDTO");
         PersonDTO personDTO = personService.getById(id).get();
-        log.info("personDTO = " + personDTO.toString());
+        log.info("edit personDTO with id: " + personDTO.getId() + " name: " + personDTO.getFirstName() + " " + personDTO.getSurName());
         model.addAttribute("personDTO", personDTO);
         return "persons/update-person";
     }
@@ -65,16 +72,21 @@ public class PersonController {
     public String updatePerson(@PathVariable("id") long id, @ModelAttribute("person") PersonDTO personDTO,
                                BindingResult result, Model model) {
         if (result.hasErrors()) {
+            log.error("error in post mapping update-person: " + result.toString());
             return "persons/update-person";
         }
+        log.debug("no error in post mapping update-person with id: " + id);
         personDTO.setId(id);
         personService.update(personDTO);
+        log.info("performed the method personService.update person with id: " + id);
         return "redirect:/persons/index";
     }
 
     @GetMapping("/delete/{id}")
     public String deletePersonById(@PathVariable("id") long id, @ModelAttribute("person") PersonDTO personDTO) {
+        log.debug("start deleting person");
         personService.delete(id);
+        log.info("complete to delete person with id: " + id);
         return "redirect:/persons/index";
     }
 }

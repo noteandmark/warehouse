@@ -31,7 +31,7 @@ public class JdbcOrderDAOImpl implements OrderDAO {
     private static final String SQL_FIND_ORDER = "select id,status,date from schema.orders where id = ?";
     private static final String SQL_DELETE_ORDER = "delete from schema.orders where id = ?";
     private static final String SQL_UPDATE_ORDER = "update schema.orders set status = ?, date = ? where id = ?";
-    private static final String SQL_GET_ALL = "select id,status,date from schema.orders";
+    private static final String SQL_GET_ALL = "select id,status,date from schema.orders ORDER BY id ASC";
     private static final String SQL_INSERT_ORDER = "insert into schema.orders (status, date) values(?,?);";
 
     @Override
