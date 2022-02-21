@@ -46,11 +46,12 @@ public class JdbcDataSourceListener implements ApplicationListener<ContextRefres
         if (!event.getApplicationContext().equals(applicationContext)) {
             return;
         }
-        try {
-            int count = warehouseService.findAll().size();
-        } catch (ServiceException e) {
-            loadStartUpData();
-        }
+        loadStartUpData();
+//        try {
+//            int count = warehouseService.findAll().size();
+//        } catch (ServiceException e) {
+//            loadStartUpData();
+//        }
     }
 
     private void loadStartUpData() {

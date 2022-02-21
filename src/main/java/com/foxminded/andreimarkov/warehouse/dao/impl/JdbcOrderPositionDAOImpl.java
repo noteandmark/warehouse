@@ -26,11 +26,11 @@ public class JdbcOrderPositionDAOImpl implements OrderPositionDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private static final String SQL_FIND_ORDERPOSITION = "select id,amount, product_id from schema.orderposition where id = ?";
-    private static final String SQL_DELETE_ORDERPOSITION = "delete from schema.orderposition where id = ?";
-    private static final String SQL_UPDATE_ORDERPOSITION = "update schema.orderposition set amount = ?, product_id = ? where id = ?";
-    private static final String SQL_GET_ALL = "select id,amount, product_id from schema.orderposition ORDER BY id ASC";
-    private static final String SQL_INSERT_ORDERPOSITION = "insert into schema.orderposition (amount, product_id) values(?,?);";
+    private static final String SQL_FIND_ORDERPOSITION = "select id,amount, product_id from orderposition where id = ?";
+    private static final String SQL_DELETE_ORDERPOSITION = "delete from orderposition where id = ?";
+    private static final String SQL_UPDATE_ORDERPOSITION = "update orderposition set amount = ?, product_id = ? where id = ?";
+    private static final String SQL_GET_ALL = "select id,amount, product_id from orderposition ORDER BY id ASC";
+    private static final String SQL_INSERT_ORDERPOSITION = "insert into orderposition (amount, product_id) values(?,?);";
 
     @Override
     public OrderPosition save(OrderPosition orderPosition) {
