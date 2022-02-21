@@ -25,7 +25,7 @@ public class JdbcCatalogDAOImpl implements CatalogDAO {
     private static final String SQL_FIND_CATALOG = "select id,name from schema.catalog where id = ?";
     private static final String SQL_DELETE_CATALOG = "delete from schema.catalog where id = ?";
     private static final String SQL_UPDATE_CATALOG = "update schema.catalog set name = ? where id = ?";
-    private static final String SQL_GET_ALL = "select name from schema.catalog";
+    private static final String SQL_GET_ALL = "select id,name from schema.catalog ORDER BY id ASC";
     private static final String SQL_INSERT_CATALOG = "insert into schema.catalog(name) values(?);";
 
     @Autowired

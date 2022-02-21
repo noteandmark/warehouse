@@ -28,7 +28,7 @@ public class JdbcPersonDAOImpl implements PersonDAO {
     private static final String SQL_FIND_PERSON = "select id,first_name,sur_name,balance,address,phone from schema.person where id = ?";
     private static final String SQL_DELETE_PERSON = "delete from schema.person where id = ?";
     private static final String SQL_UPDATE_PERSON = "update schema.person set first_name = ?, sur_name = ?, balance  = ?, address = ?, phone = ? where id = ?";
-    private static final String SQL_GET_ALL = "select first_name,sur_name,balance,address,phone from schema.person";
+    private static final String SQL_GET_ALL = "select id,first_name,sur_name,balance,address,phone from schema.person ORDER BY id ASC";
     private static final String SQL_INSERT_PERSON = "insert into schema.person(first_name, sur_name, balance, address, phone) values(?,?,?,?,?);";
 
     @Override

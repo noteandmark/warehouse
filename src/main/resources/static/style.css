@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,100&display=swap');
+
+body, html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    color: #222;
+}
+
+.nav-link {font-size: 1.1em !important}
+
+.navbar-brand img {width: 150px}
+
+.navbar-nav li {
+    padding-right: 20px;
+}

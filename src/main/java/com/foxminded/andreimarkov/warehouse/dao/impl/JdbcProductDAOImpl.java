@@ -23,7 +23,7 @@ public class JdbcProductDAOImpl implements ProductDAO {
     private static final String SQL_FIND_PRODUCT = "select id,code,name,description,quantity,price from schema.product where id = ?";
     private static final String SQL_DELETE_PRODUCT = "delete from schema.product where id = ?";
     private static final String SQL_UPDATE_PRODUCT = "update schema.product set code = ?, name = ?, description  = ?, quantity = ?, price = ? where id = ?";
-    private static final String SQL_GET_ALL = "select code,name,description,quantity,price from schema.product";
+    private static final String SQL_GET_ALL = "select id,code,name,description,quantity,price from schema.product ORDER BY id ASC";
     private static final String SQL_INSERT_PRODUCT = "insert into schema.product(code,name,description,quantity,price) values(?,?,?,?,?);";
 
     @Autowired
