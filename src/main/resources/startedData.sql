@@ -1,16 +1,3 @@
--- !!! unscramble on first startup to create:
---CREATE DATABASE warehouse;
-
--- !!! unscramble, if want to drop tables before each application startup:
---DROP TABLE IF EXISTS person cascade;
---DROP TABLE IF EXISTS company cascade;
---DROP TABLE IF EXISTS location cascade;
---DROP TABLE IF EXISTS orderposition cascade;
---DROP TABLE IF EXISTS warehouse cascade;
---DROP TABLE IF EXISTS catalog cascade;
---DROP TABLE IF EXISTS product cascade;
---DROP TABLE IF EXISTS orders cascade;
-
 CREATE TABLE IF NOT EXISTS person
 (
     id         bigserial,
