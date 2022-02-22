@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Company Page</title>
+    <title>Catalog Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/static/style.css">
     <!-- Bootstrap CSS -->
@@ -15,11 +15,11 @@
 </head>
 <body>
 <div th:insert="~{fragments/layout :: header-fragment}"></div>
-    <h1 th:text="'Companies page navigation'">Companies page navigation...</h1>
+    <h1 th:text="'Catalogs page navigation'">Catalogs page navigation...</h1>
     <br />
     <div class="container">
-        <a class="btn btn-outline-primary" th:href="@{/companies/get-all}">
-            Get all companies
+        <a class="btn btn-outline-primary" th:href="@{/catalogs/get-all}">
+            Get all catalogs
         </a>
     </div>
     <br />

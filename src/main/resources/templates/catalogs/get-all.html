@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Company Page</title>
+    <title>Catalog Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/static/style.css">
     <!-- Bootstrap CSS -->
@@ -15,42 +15,36 @@
 </head>
 <body>
 <div th:insert="~{fragments/layout :: header-fragment}"></div>
-<div class="container-fluid" th:switch="${companies}">
-    <h2 th:case="null">No companies yet!</h2>
+<div class="container-fluid" th:switch="${catalogs}">
+    <h2 th:case="null">No catalogs yet!</h2>
     <div th:case="*">
-        <h2 th:text="'List of Companies'">Companies</h2>
+        <h2 th:text="'List of Catalogs'">Catalogs</h2>
         <div class="table-responsive">
             <table class="table-primary table-bordered">
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Balance</th>
-                    <th>Address</th>
-                    <th>Phone</th>
                     <th>View</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="company : ${companies}">
-                    <td th:text="${company.name}" style="width: 150px">BigComp</td>
-                    <td th:text="${company.balance}" style="text-align: center">100</td>
-                    <td th:text="${company.address}" style="width: 150px">Valley Str.,277</td>
-                    <td th:text="${company.phone}" style="width: 100px">+3807178866</td>
-                    <td style="width: 50px"><a href="#" th:href="@{/companies/view/{id}(id=${company.id})}">View</a></td>
-                    <td style="width: 50px"><a th:href="@{/companies/edit/{id}(id=${company.id})}">Edit</a></td>
-                    <td style="width: 50px"><a th:href="@{/companies/delete/{id}(id=${company.id})}">Delete</a></td>
+                <tr th:each="catalog : ${catalogs}">
+                    <td th:text="${catalog.name}" style="width: 150px">Lamps</td>
+                    <td style="width: 50px"><a href="#" th:href="@{/catalogs/view/{id}(id=${catalog.id})}">View</a></td>
+                    <td style="width: 50px"><a th:href="@{/catalogs/edit/{id}(id=${catalog.id})}">Edit</a></td>
+                    <td style="width: 50px"><a th:href="@{/catalogs/delete/{id}(id=${catalog.id})}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <hr/>
-    <p class="my-5"><a href="/companies/add-company" class="btn btn-primary">Add new company <i class="fas fa-user-plus ml-2"></i></a></p>
+    <p class="my-5"><a href="/catalogs/add-catalog" class="btn btn-primary">Add new catalog <i class="fas fa-user-plus ml-2"></i></a></p>
     <hr/>
     <i class="fa-solid fa-hand-point-left"></i>
-    <a href="/companies/index.html">Go back</a>
+    <a href="/catalogs/index.html">Go back</a>
 </div>
 <div th:insert="~{fragments/layout :: footer-fragment}"></div>
 </body>

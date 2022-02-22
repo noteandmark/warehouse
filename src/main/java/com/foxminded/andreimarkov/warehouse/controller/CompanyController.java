@@ -1,6 +1,7 @@
 package com.foxminded.andreimarkov.warehouse.controller;
 
 import com.foxminded.andreimarkov.warehouse.dto.CompanyDTO;
+import com.foxminded.andreimarkov.warehouse.exceptions.ServiceException;
 import com.foxminded.andreimarkov.warehouse.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,20 @@ public class CompanyController {
         return "companies/index";
     }
 
-    @GetMapping({"/get-all","/get-all.html"})
+    @GetMapping({"/get-all", "/get-all.html"})
     public String listCompanies(Model model) {
         log.debug("start get-all companies");
-        model.addAttribute("companies", companyService.findAll());
+        try {
+            model.addAttribute("companies", companyService.findAll());
+        } catch (ServiceException e) {
+            log.info("no one company in database");
+        }
         log.info("start companyService.findAll");
         return "companies/get-all";
     }
 
     @GetMapping("/add-company")
-    public String newCompany(@ModelAttribute("company") CompanyDTO person) {
+    public String newCompany(@ModelAttribute("company") CompanyDTO companyDTO) {
         return "companies/add-company";
     }
 
@@ -70,7 +75,7 @@ public class CompanyController {
 
     @PostMapping("/update-company/{id}")
     public String updateCompany(@PathVariable("id") long id, @ModelAttribute("company") CompanyDTO companyDTO,
-                               BindingResult result, Model model) {
+                                BindingResult result, Model model) {
         if (result.hasErrors()) {
             log.error("error in post mapping update-company: " + result.toString());
             return "companies/update-company";
