@@ -20,11 +20,11 @@ import java.util.Optional;
 public class JdbcCompanyDAOImpl implements CompanyDAO {
     private final JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_FIND_COMPANY = "select id,name,balance,address,phone from schema.company where id = ?";
-    private static final String SQL_DELETE_COMPANY = "delete from schema.company where id = ?";
-    private static final String SQL_UPDATE_COMPANY = "update schema.company set name = ?, balance  = ?, address = ?, phone = ? where id = ?";
-    private static final String SQL_GET_ALL = "select id,name,balance,address,phone from schema.company ORDER BY id ASC";
-    private static final String SQL_INSERT_COMPANY = "insert into schema.company(name, balance, address, phone) values(?,?,?,?);";
+    private static final String SQL_FIND_COMPANY = "select id,name,balance,address,phone from company where id = ?";
+    private static final String SQL_DELETE_COMPANY = "delete from company where id = ?";
+    private static final String SQL_UPDATE_COMPANY = "update company set name = ?, balance  = ?, address = ?, phone = ? where id = ?";
+    private static final String SQL_GET_ALL = "select id,name,balance,address,phone from company ORDER BY id ASC";
+    private static final String SQL_INSERT_COMPANY = "insert into company(name, balance, address, phone) values(?,?,?,?);";
 
     @Autowired
     public JdbcCompanyDAOImpl(JdbcTemplate jdbcTemplate) {

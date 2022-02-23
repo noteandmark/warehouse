@@ -28,11 +28,11 @@ public class JdbcOrderDAOImpl implements OrderDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private static final String SQL_FIND_ORDER = "select id,status,date from schema.orders where id = ?";
-    private static final String SQL_DELETE_ORDER = "delete from schema.orders where id = ?";
-    private static final String SQL_UPDATE_ORDER = "update schema.orders set status = ?, date = ? where id = ?";
-    private static final String SQL_GET_ALL = "select id,status,date from schema.orders ORDER BY id ASC";
-    private static final String SQL_INSERT_ORDER = "insert into schema.orders (status, date) values(?,?);";
+    private static final String SQL_FIND_ORDER = "select id,status,date from orders where id = ?";
+    private static final String SQL_DELETE_ORDER = "delete from orders where id = ?";
+    private static final String SQL_UPDATE_ORDER = "update orders set status = ?, date = ? where id = ?";
+    private static final String SQL_GET_ALL = "select id,status,date from orders ORDER BY id ASC";
+    private static final String SQL_INSERT_ORDER = "insert into orders (status, date) values(?,?);";
 
     @Override
     public Order save(Order order) {

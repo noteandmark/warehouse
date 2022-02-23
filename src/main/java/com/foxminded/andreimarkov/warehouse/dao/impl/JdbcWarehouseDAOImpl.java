@@ -20,11 +20,11 @@ import java.util.Optional;
 public class JdbcWarehouseDAOImpl implements WarehouseDAO {
     private final JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_FIND_WAREHOUSE = "select id,name from schema.warehouse where id = ?";
-    private static final String SQL_DELETE_WAREHOUSE = "delete from schema.warehouse where id = ?";
-    private static final String SQL_UPDATE_WAREHOUSE = "update schema.warehouse set name = ? where id = ?";
-    private static final String SQL_GET_ALL = "select id,name from schema.warehouse ORDER BY id ASC";
-    private static final String SQL_INSERT_WAREHOUSE = "insert into schema.warehouse(name) values(?);";
+    private static final String SQL_FIND_WAREHOUSE = "select id,name from warehouse where id = ?";
+    private static final String SQL_DELETE_WAREHOUSE = "delete from warehouse where id = ?";
+    private static final String SQL_UPDATE_WAREHOUSE = "update warehouse set name = ? where id = ?";
+    private static final String SQL_GET_ALL = "select id,name from warehouse ORDER BY id ASC";
+    private static final String SQL_INSERT_WAREHOUSE = "insert into warehouse(name) values(?);";
 
     @Autowired
     public JdbcWarehouseDAOImpl(JdbcTemplate jdbcTemplate) {

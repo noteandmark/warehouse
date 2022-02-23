@@ -1,6 +1,7 @@
 package com.foxminded.andreimarkov.warehouse.controller;
 
 import com.foxminded.andreimarkov.warehouse.dto.PersonDTO;
+import com.foxminded.andreimarkov.warehouse.exceptions.ServiceException;
 import com.foxminded.andreimarkov.warehouse.service.PersonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,14 @@ public class PersonController {
         return "persons/index";
     }
 
-    @GetMapping({"/get-all","/get-all.html"})
+    @GetMapping({"/get-all", "/get-all.html"})
     public String listPersons(Model model) {
         log.debug("start get-all persons");
-        model.addAttribute("persons", personService.findAll());
+        try {
+            model.addAttribute("persons", personService.findAll());
+        } catch (ServiceException e) {
+            log.info("no one person in database");
+        }
         log.info("start personService.findAll");
         return "persons/get-all";
     }
