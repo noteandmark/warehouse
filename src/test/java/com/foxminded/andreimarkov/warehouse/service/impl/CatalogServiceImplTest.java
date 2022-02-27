@@ -40,7 +40,7 @@ class CatalogServiceImplTest {
         catalog = new Catalog();
         when(mapper.map(catalogDTO, Catalog.class)).thenReturn(catalog);
         when(mapper.map(catalog, CatalogDTO.class)).thenReturn(catalogDTO);
-        catalogDTO.setId(20000L);
+        catalogDTO.setCatalogId(20000L);
         catalogDTO.setName("Lamps");
     }
 
@@ -62,7 +62,7 @@ class CatalogServiceImplTest {
 
     @Test
     void getById() {
-        catalog.setId(10000L);
+        catalog.setCatalogId(10000L);
         catalog.setName("Modern Lamps");
         when(catalogDAO.getById(anyLong())).thenReturn(Optional.ofNullable(catalog));
         Optional<CatalogDTO> actual = catalogService.getById(10000L);
@@ -78,9 +78,9 @@ class CatalogServiceImplTest {
 
     @Test
     void delete() {
-        catalog.setId(20000L);
+        catalog.setCatalogId(20000L);
         when(catalogDAO.getById(anyLong())).thenReturn(Optional.of(catalog));
-        catalogService.delete(catalogDTO.getId());
-        verify(catalogDAO, times(1)).delete(catalog.getId());
+        catalogService.delete(catalogDTO.getCatalogId());
+        verify(catalogDAO, times(1)).delete(catalog.getCatalogId());
     }
 }

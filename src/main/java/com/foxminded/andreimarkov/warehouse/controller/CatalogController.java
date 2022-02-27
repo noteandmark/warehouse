@@ -68,7 +68,7 @@ public class CatalogController {
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         log.debug("start to edit catalogDTO");
         CatalogDTO catalogDTO = catalogService.getById(id).get();
-        log.info("edit catalogDTO with id: " + catalogDTO.getId() + " name: " + catalogDTO.getName());
+        log.info("edit catalogDTO with id: " + catalogDTO.getCatalogId() + " name: " + catalogDTO.getName());
         model.addAttribute("catalogDTO", catalogDTO);
         return "catalogs/update-catalog";
     }
@@ -81,7 +81,7 @@ public class CatalogController {
             return "catalogs/update-catalog";
         }
         log.debug("no error in post mapping update-catalog with id: " + id);
-        catalogDTO.setId(id);
+        catalogDTO.setCatalogId(id);
         catalogService.update(catalogDTO);
         log.info("performed the method catalogService.update catalog with id: " + id);
         return "redirect:/catalogs/index";

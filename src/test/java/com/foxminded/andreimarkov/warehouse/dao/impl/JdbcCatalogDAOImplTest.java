@@ -25,7 +25,7 @@ class JdbcCatalogDAOImplTest {
         catalog.setName("halogen lamps");
         repository.save(catalog);
         assertNotNull(catalog);
-        assertNotNull(catalog.getId());
+        assertNotNull(catalog.getCatalogId());
         assertEquals("halogen lamps",catalog.getName());
     }
 
@@ -50,7 +50,7 @@ class JdbcCatalogDAOImplTest {
         catalog.setName("led lamps");
         Catalog updated = repository.update(catalog);
         assertNotNull(updated);
-        assertNotNull(updated.getId());
+        assertNotNull(updated.getCatalogId());
         assertEquals("led lamps",updated.getName());
     }
 

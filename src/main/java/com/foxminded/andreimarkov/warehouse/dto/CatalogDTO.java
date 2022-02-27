@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class CatalogDTO {
-    private Long id;
+    private Long catalogId;
     private String name;
     private List<CatalogDTO> group;
     private List<ProductDTO> goods;

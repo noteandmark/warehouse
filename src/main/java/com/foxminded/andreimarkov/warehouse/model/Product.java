@@ -10,6 +10,6 @@ public class Product {
     private String description;
     private int quantity;
     private int price;
-    private Catalog category;
+    private Catalog catalogId;
     private Location location;
 }

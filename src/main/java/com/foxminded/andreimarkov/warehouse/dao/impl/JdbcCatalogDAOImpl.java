@@ -45,7 +45,7 @@ public class JdbcCatalogDAOImpl implements CatalogDAO {
                     return ps;
                 },
                 keyHolder);
-        catalog.setId(keyHolder.getKey().longValue());
+        catalog.setCatalogId(keyHolder.getKey().longValue());
         log.debug("catalog {} saved", catalog.getName());
         return catalog;
     }
@@ -71,7 +71,7 @@ public class JdbcCatalogDAOImpl implements CatalogDAO {
     @Override
     public Catalog update(Catalog catalog) {
         log.debug("update catalog");
-        jdbcTemplate.update(SQL_UPDATE_CATALOG, catalog.getName(),catalog.getId());
+        jdbcTemplate.update(SQL_UPDATE_CATALOG, catalog.getName(),catalog.getCatalogId());
         log.debug("catalog {} updated",catalog.getName());
         return catalog;
     }

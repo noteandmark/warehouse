@@ -36,7 +36,7 @@
         </encoder>
         <file>./logs/error1.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/logs/error/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>./logs/error/%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
     </appender>

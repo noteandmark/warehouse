@@ -14,10 +14,10 @@
 </head>
 <body>
 <div th:insert="~{fragments/layout :: header-fragment}"></div>
-<!--/*@thymesVar id="product" type="com.foxminded.andreimarkov.warehouse.dto.ProductDTO"*/-->
 <div class="container-fluid" style="margin-top: 20px">
-    <form action="#" th:action="@{/products/add-product/}" th:object="${product}" method="post">
-        <input type="hidden" th:field="*{id}"/>
+    <form th:method="post"
+          th:action="@{/products/add-product}"
+          th:object="${productDTO}">
         <div class="row">
             <label for="code">Code</label>
             <input type="text" th:field="*{code}" id="code" placeholder="Code">
@@ -35,14 +35,22 @@
             <input type="text" th:field="*{quantity}" id="quantity" placeholder="Quantity">
         </div>
         <div class="row">
-            <label for="quantity">Quantity</label>
-            <input type="text" th:field="*{quantity}" id="quantity" placeholder="Quantity">
-        </div>
-        <div class="row">
             <label for="price">Price</label>
             <input type="text" th:field="*{price}" id="price" placeholder="Price">
         </div>
-        <input type="submit" class="btn btn-primary" value="Add Product">
+        <label>Add product to catalog:</label>
+        <br/>
+        <div class="col-md-5">
+            <input type="text" class="form-control" list="catalogs" th:field="*{catalogId}"/>
+            <datalist id="catalogs" th:each="catalog: ${catalogs}">
+                <option th:each="catalog : ${catalogs}"
+                        th:value="${catalog.getCatalogId()}"
+                        th:text="${catalog.getName()}">
+                </option>
+            </datalist>
+        </div>
+        <br/>
+        <input type="submit" class="btn btn-primary" value="Add Product"/>
     </form>
 </div>
 <hr/>

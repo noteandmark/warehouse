@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS product
     location_id bigint,
     PRIMARY KEY (id)
 );
+--ALTER TABLE product ADD CONSTRAINT product_fk1 FOREIGN KEY (catalog_id) REFERENCES catalog (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 CREATE TABLE IF NOT EXISTS orders
 (
