@@ -52,12 +52,12 @@ class ProductServiceImplTest {
         productDTO.setDescription("usual lamp");
         productDTO.setQuantity(100);
         productDTO.setPrice(540);
-        catalogDTO.setCatalogId(100L);
+        catalogDTO.setId(100L);
         catalogDTO.setName("lamps");
         locationDTO.setId(20000L);
         locationDTO.setWarehouseName("Main warehouse");
         locationDTO.setShelfNumber(15);
-        productDTO.setCatalogId(catalogDTO);
+        productDTO.setCatalogId(Math.toIntExact(catalogDTO.getId()));
         productDTO.setLocationDTO(locationDTO);
     }
 

@@ -88,6 +88,7 @@ public class ProductController {
             return "products/update-product";
         }
         log.debug("no error in post mapping update-product with id: " + id);
+        model.addAttribute("catalogs", catalogService.findAll());
         productDTO.setId(id);
         productService.update(productDTO);
         log.info("performed the method productService.update product with id: " + id);

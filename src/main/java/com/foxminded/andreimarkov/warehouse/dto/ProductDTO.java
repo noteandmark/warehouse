@@ -10,6 +10,6 @@ public class ProductDTO {
     private String description;
     private int quantity;
     private int price;
-    private CatalogDTO catalogId;
+    private int catalogId;
     private LocationDTO locationDTO;
 }

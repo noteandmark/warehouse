@@ -41,13 +41,12 @@
         <label>Add product to catalog:</label>
         <br/>
         <div class="col-md-5">
-            <input type="text" class="form-control" list="catalogs" th:field="*{catalogId}"/>
-            <datalist id="catalogs" th:each="catalog: ${catalogs}">
+            <select id="catalogs" class="form-control" th:field="*{catalogId}">
                 <option th:each="catalog : ${catalogs}"
-                        th:value="${catalog.getCatalogId()}"
+                        th:value="${catalog.getId()}"
                         th:text="${catalog.getName()}">
                 </option>
-            </datalist>
+            </select>
         </div>
         <br/>
         <input type="submit" class="btn btn-primary" value="Add Product"/>

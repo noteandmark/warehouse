@@ -41,11 +41,11 @@ class CatalogControllerTest {
     void listCatalogs_whenGetAllCatalogs_thenShouldReturnModel() throws Exception {
 
         CatalogDTO catalogDTO = new CatalogDTO();
-        catalogDTO.setCatalogId(10000L);
+        catalogDTO.setId(10000L);
         catalogDTO.setName("Lamps");
 
         CatalogDTO catalogDTO2 = new CatalogDTO();
-        catalogDTO2.setCatalogId(10001L);
+        catalogDTO2.setId(10001L);
         catalogDTO2.setName("Candlesticks");
 
         List<CatalogDTO> all = Arrays.asList(catalogDTO, catalogDTO2);
@@ -58,7 +58,7 @@ class CatalogControllerTest {
     @Test
     void showCatalogsById_whenGivenId_thenReturnThisCatalog() throws Exception {
         CatalogDTO catalogDTO = new CatalogDTO();
-        catalogDTO.setCatalogId(1L);
+        catalogDTO.setId(1L);
         Optional<CatalogDTO> catalogDTOOptional = Optional.of(catalogDTO);
 
         when(catalogService.getById(anyLong())).thenReturn(catalogDTOOptional);
@@ -87,7 +87,7 @@ class CatalogControllerTest {
     @Test
     void addCatalog_whenPostRequest_thenShouldCreateNewCatalog() throws Exception {
         CatalogDTO catalogDTO = new CatalogDTO();
-        catalogDTO.setCatalogId(2L);
+        catalogDTO.setId(2L);
         when(catalogService.save(any())).thenReturn(catalogDTO);
         mockMvc.perform(post("/catalogs/add-catalog")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
@@ -98,7 +98,7 @@ class CatalogControllerTest {
     @Test
     void showUpdateForm_whenGetToUpdateSomeCatalog_thenShouldGiveForm() throws Exception {
         CatalogDTO catalogDTO = new CatalogDTO();
-        catalogDTO.setCatalogId(2L);
+        catalogDTO.setId(2L);
         Optional<CatalogDTO> catalogDTOOptional = Optional.of(catalogDTO);
         when(catalogService.getById(anyLong())).thenReturn(catalogDTOOptional);
         mockMvc.perform(get("/catalogs/edit/2"))
@@ -110,7 +110,7 @@ class CatalogControllerTest {
     @Test
     void updateCatalog_whenPostRequestToUpdate_thenShouldUpdateThisCatalog() throws Exception {
         CatalogDTO catalogDTO = new CatalogDTO();
-        catalogDTO.setCatalogId(2L);
+        catalogDTO.setId(2L);
         when(catalogService.update(any())).thenReturn(catalogDTO);
         mockMvc.perform(post("/catalogs/update-catalog/2")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))

@@ -38,13 +38,13 @@ public class JdbcProductDAOImpl implements ProductDAO {
         jdbcTemplate.update(
                 connection -> {
                     PreparedStatement ps =
-                            connection.prepareStatement(SQL_INSERT_PRODUCT, new String[] {"id"});
-                    ps.setString(1,  product.getCode());
-                    ps.setString(2,  product.getName());
-                    ps.setString(3,  product.getDescription());
-                    ps.setInt(4,  product.getQuantity());
-                    ps.setInt(5,  product.getPrice());
-                    ps.setLong(6,product.getCatalogId().getCatalogId());
+                            connection.prepareStatement(SQL_INSERT_PRODUCT, new String[]{"id"});
+                    ps.setString(1, product.getCode());
+                    ps.setString(2, product.getName());
+                    ps.setString(3, product.getDescription());
+                    ps.setInt(4, product.getQuantity());
+                    ps.setInt(5, product.getPrice());
+                    ps.setInt(6, product.getCatalogId());
                     return ps;
                 },
                 keyHolder);
@@ -66,7 +66,7 @@ public class JdbcProductDAOImpl implements ProductDAO {
             return Optional.of(jdbcTemplate.queryForObject(SQL_FIND_PRODUCT,
                     new BeanPropertyRowMapper<Product>(Product.class), id));
         } catch (EmptyResultDataAccessException e) {
-            log.error("get error: empty result, return optional.empty",e.getLocalizedMessage());
+            log.error("get error: empty result, return optional.empty", e.getLocalizedMessage());
             return Optional.empty();
         }
     }
@@ -74,15 +74,15 @@ public class JdbcProductDAOImpl implements ProductDAO {
     @Override
     public Product update(Product product) {
         log.debug("update product");
-        Object category = product.getCatalogId() == null ? null : product.getCatalogId();
-        jdbcTemplate.update(SQL_UPDATE_PRODUCT, product.getCode(), product.getName(), product.getDescription(), product.getQuantity(),product.getPrice(),product.getId(),category);
-        log.debug("product {} updated",product.getName());
+        System.out.println("product.getName() = " + product.getName() + " product.getCatalogId() = " + product.getCatalogId());
+        jdbcTemplate.update(SQL_UPDATE_PRODUCT, product.getCode(), product.getName(), product.getDescription(), product.getQuantity(), product.getPrice(), product.getCatalogId(), product.getId());
+        log.debug("product {} updated", product.getName());
         return product;
     }
 
     @Override
     public int delete(Long id) {
-        log.debug("delete product by id {}",id);
+        log.debug("delete product by id {}", id);
         return jdbcTemplate.update(SQL_DELETE_PRODUCT, id);
     }
 
