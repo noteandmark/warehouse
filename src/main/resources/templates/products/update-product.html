@@ -41,10 +41,10 @@
             <label>Add product to catalog:</label>
             <br/>
             <div class="col-md-5">
-                <select id="categories" class="form-control" th:field="*{id}" required>
-                    <option th:each="category : ${categories}"
-                            th:value="${category.getId()}"
-                            th:text="${category.getName()}">
+                <select id="catalogId" class="form-control" th:field="*{catalogId}" required>
+                    <option th:each="catalog : ${catalogs}"
+                            th:value="${catalog.getId()}"
+                            th:text="${catalog.getName()}">
                     </option>
                 </select>
             </div>

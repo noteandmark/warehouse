@@ -33,6 +33,19 @@
                 </tbody>
             </table>
         </div>
+        <div class="panel-body">
+            <table class="table-primary table-bordered">
+                <thead>
+                <tr style="text-align: center">
+                    <th scope="col">Products in this catalog</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product : ${products}">
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <hr/>

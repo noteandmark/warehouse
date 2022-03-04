@@ -3,6 +3,9 @@ package com.foxminded.andreimarkov.warehouse.controller;
 import com.foxminded.andreimarkov.warehouse.dto.CatalogDTO;
 import com.foxminded.andreimarkov.warehouse.exceptions.ServiceException;
 import com.foxminded.andreimarkov.warehouse.service.CatalogService;
+import com.foxminded.andreimarkov.warehouse.service.ProductService;
+import com.foxminded.andreimarkov.warehouse.service.impl.CatalogServiceImpl;
+import com.foxminded.andreimarkov.warehouse.service.impl.ProductServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +18,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class CatalogController {
 
-    private final CatalogService catalogService;
+    private final ProductServiceImpl productService;
+    private final CatalogServiceImpl catalogService;
 
     @Autowired
-    public CatalogController(CatalogService catalogService) {
+    public CatalogController(ProductServiceImpl productService, CatalogServiceImpl catalogService) {
+        this.productService = productService;
         this.catalogService = catalogService;
     }
 
@@ -60,6 +65,7 @@ public class CatalogController {
     public String showCatalogById(@PathVariable String id, Model model) {
         log.debug("Getting view for catalog id: " + id);
         model.addAttribute("catalog", catalogService.getById(Long.valueOf(id)));
+        model.addAttribute("products",productService.getProductsByCatalogId(Integer.parseInt(id)));
         log.info("add to model catalog by id: " + id);
         return "catalogs/view";
     }

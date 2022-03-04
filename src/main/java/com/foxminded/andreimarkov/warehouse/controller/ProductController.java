@@ -77,7 +77,7 @@ public class ProductController {
         ProductDTO productDTO = productService.getById(id).get();
         log.info("edit productDTO with id: " + productDTO.getId() + " name: " + productDTO.getName());
         model.addAttribute("productDTO", productDTO);
-        model.addAttribute("categories", catalogService.findAll());
+        model.addAttribute("catalogs", catalogService.findAll());
         return "products/update-product";
     }
 

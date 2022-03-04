@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS product_catalog
     FOREIGN KEY (product_id) REFERENCES product (id) on delete cascade,
     FOREIGN KEY (catalog_id) REFERENCES catalog (id) on delete cascade
 );
+--maybe we can work without creating this table
 
 CREATE TABLE IF NOT EXISTS location_product
 (
