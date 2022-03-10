@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -79,7 +80,12 @@ public class JdbcCatalogDAOImpl implements CatalogDAO {
     @Override
     public int delete(Long id) {
         log.debug("delete catalog by id {}",id);
-        return jdbcTemplate.update(SQL_DELETE_CATALOG, id);
+        try {
+            return jdbcTemplate.update(SQL_DELETE_CATALOG, id);
+        } catch (DataIntegrityViolationException e) {
+            log.error("Deleting catalog was not done. Some error");
+        }
+        return 0;
     }
 
 }

@@ -2,6 +2,7 @@ package com.foxminded.andreimarkov.warehouse.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foxminded.andreimarkov.warehouse.dto.ProductDTO;
+import com.foxminded.andreimarkov.warehouse.service.impl.CatalogServiceImpl;
 import com.foxminded.andreimarkov.warehouse.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -36,6 +37,9 @@ class ProductControllerTest {
 
     @MockBean
     private ProductServiceImpl productService;
+
+    @MockBean
+    private CatalogServiceImpl catalogService;
 
     @Test
     void listProducts_whenGetAllProducts_thenShouldReturnModel() throws Exception {
@@ -88,7 +92,7 @@ class ProductControllerTest {
         mockMvc.perform((get("/products/add-product")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("products/add-product"))
-                .andExpect(model().attributeExists("product"));
+                .andExpect(model().attributeExists("productDTO"));
     }
 
     @Test
@@ -122,7 +126,7 @@ class ProductControllerTest {
         mockMvc.perform(post("/products/update-product/2")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/products/index"));
+                .andExpect(view().name("redirect:/products/get-all"));
     }
 
     @Test

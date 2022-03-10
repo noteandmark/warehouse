@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,7 +90,7 @@ public class JdbcProductDAOImpl implements ProductDAO {
 
     public List<Product> getProductsByCatalogId(Integer id) {
         log.debug("getting products with catalog_id = {}",id);
-        return jdbcTemplate.query(SQL_FIND_PRODUCTS_FROM_CATALOG,new BeanPropertyRowMapper<Product>(Product.class));
+        return jdbcTemplate.query(SQL_FIND_PRODUCTS_FROM_CATALOG,new BeanPropertyRowMapper<Product>(Product.class), id);
     }
 
 }

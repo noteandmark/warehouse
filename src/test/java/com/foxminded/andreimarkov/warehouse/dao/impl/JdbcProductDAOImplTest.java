@@ -99,15 +99,14 @@ class JdbcProductDAOImplTest {
         product3.setPrice(2500);
         product3.setCatalogId(2);
 
-        List<Product> expected = new ArrayList<>();
-        expected.add(product1);
-        expected.add(product2);
-
         repository.save(product1);
         repository.save(product2);
         repository.save(product3);
 
-        List<Product> actual = repository.getProductsByCatalogId(1);
+        List<Product> expected = new ArrayList<>();
+        expected.add(product3);
+
+        List<Product> actual = repository.getProductsByCatalogId(2);
         assertEquals(expected, actual);
     }
 }

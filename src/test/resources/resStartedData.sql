@@ -19,7 +19,7 @@ values ('90 warehouse', 5);
 insert into orders (status, date)
 values ('not_processed', '08-01-2022 18:00:00');
 
--- insert into schema.orderposition (amount, product_id) values (100, 1);
+insert into orderposition (amount, product_id) values (100, 1);
 
 insert into warehouse (name)
 values ('main');

@@ -2,8 +2,6 @@ package com.foxminded.andreimarkov.warehouse.controller;
 
 import com.foxminded.andreimarkov.warehouse.dto.CatalogDTO;
 import com.foxminded.andreimarkov.warehouse.exceptions.ServiceException;
-import com.foxminded.andreimarkov.warehouse.service.CatalogService;
-import com.foxminded.andreimarkov.warehouse.service.ProductService;
 import com.foxminded.andreimarkov.warehouse.service.impl.CatalogServiceImpl;
 import com.foxminded.andreimarkov.warehouse.service.impl.ProductServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class CatalogController {
 
-    private final ProductServiceImpl productService;
     private final CatalogServiceImpl catalogService;
+    private final ProductServiceImpl productService;
 
     @Autowired
-    public CatalogController(ProductServiceImpl productService, CatalogServiceImpl catalogService) {
-        this.productService = productService;
+    public CatalogController(CatalogServiceImpl catalogService, ProductServiceImpl productService) {
         this.catalogService = catalogService;
+        this.productService = productService;
     }
 
     @GetMapping({"", "/index", "/index.html"})
@@ -65,7 +63,11 @@ public class CatalogController {
     public String showCatalogById(@PathVariable String id, Model model) {
         log.debug("Getting view for catalog id: " + id);
         model.addAttribute("catalog", catalogService.getById(Long.valueOf(id)));
-        model.addAttribute("products",productService.getProductsByCatalogId(Integer.parseInt(id)));
+        try {
+            model.addAttribute("products", productService.getProductsByCatalogId(Integer.parseInt(id)));
+        } catch (ServiceException e) {
+            log.info("no one product in this catalog");
+        }
         log.info("add to model catalog by id: " + id);
         return "catalogs/view";
     }

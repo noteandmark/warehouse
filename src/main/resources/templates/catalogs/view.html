@@ -20,7 +20,7 @@
             <h3 class="panel-title">Catalog information</h3>
         </div>
         <div class="panel-body">
-            <table class="table-primary table-bordered">
+            <table class="table-primary table-bordered" style="width: 200px">
                 <thead>
                 <tr style="text-align: center">
                     <th scope="col">Name</th>
@@ -34,7 +34,7 @@
             </table>
         </div>
         <div class="panel-body">
-            <table class="table-primary table-bordered">
+            <table class="table-primary table-bordered" style="width: 200px">
                 <thead>
                 <tr style="text-align: center">
                     <th scope="col">Products in this catalog</th>
@@ -42,6 +42,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="product : ${products}">
+                    <td th:text="${product.name}">product</td>
                 </tr>
                 </tbody>
             </table>

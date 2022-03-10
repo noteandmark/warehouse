@@ -1,10 +1,9 @@
 package com.foxminded.andreimarkov.warehouse.controller;
 
-import com.foxminded.andreimarkov.warehouse.dto.CatalogDTO;
 import com.foxminded.andreimarkov.warehouse.dto.ProductDTO;
 import com.foxminded.andreimarkov.warehouse.exceptions.ServiceException;
-import com.foxminded.andreimarkov.warehouse.service.CatalogService;
-import com.foxminded.andreimarkov.warehouse.service.ProductService;
+import com.foxminded.andreimarkov.warehouse.service.impl.CatalogServiceImpl;
+import com.foxminded.andreimarkov.warehouse.service.impl.ProductServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,18 +11,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequestMapping("/products")
 @Controller
 @Slf4j
 public class ProductController {
 
-    private final ProductService productService;
-    private final CatalogService catalogService;
+    private final ProductServiceImpl productService;
+    private final CatalogServiceImpl catalogService;
 
     @Autowired
-    public ProductController(ProductService productService, CatalogService catalogService) {
+    public ProductController(ProductServiceImpl productService, CatalogServiceImpl catalogService) {
         this.productService = productService;
         this.catalogService = catalogService;
     }
