@@ -3,6 +3,7 @@ package com.foxminded.andreimarkov.warehouse.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foxminded.andreimarkov.warehouse.dto.CatalogDTO;
 import com.foxminded.andreimarkov.warehouse.service.impl.CatalogServiceImpl;
+import com.foxminded.andreimarkov.warehouse.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,8 @@ class CatalogControllerTest {
 
     @MockBean
     private CatalogServiceImpl catalogService;
+    @MockBean
+    private ProductServiceImpl productService;
 
     @Test
     void listCatalogs_whenGetAllCatalogs_thenShouldReturnModel() throws Exception {

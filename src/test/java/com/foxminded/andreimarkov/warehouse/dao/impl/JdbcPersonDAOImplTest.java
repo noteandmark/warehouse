@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @JdbcTest
 @Import(JdbcPersonDAOImpl.class)
-@Sql({"classpath:schema.sql", "classpath:startedData.sql"})
+@Sql({"classpath:schema.sql", "classpath:resStartedData.sql"})
 class JdbcPersonDAOImplTest {
 
     @Autowired

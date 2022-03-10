@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
         log.debug("get optional value");
         Product productById;
         if (!optionalProduct.isPresent()) {
-            log.warn("no product with id {}",id);
+            log.warn("no product with id {}", id);
             throw new ServiceException("No product with this id");
         }
         productById = optionalProduct.get();
@@ -72,13 +72,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int delete(long id) {
-        log.debug("starting delete product with id {}",id);
+        log.debug("starting delete product with id {}", id);
         return productDAO.delete(id);
+    }
+
+    public List<ProductDTO> getProductsByCatalogId(Integer id) {
+        log.debug("getting findAll in productService");
+        List<Product> allByCatalogId = productDAO.getProductsByCatalogId(id);
+        if (allByCatalogId.isEmpty()) {
+            log.warn("there are no any product");
+            throw new ServiceException("Product is empty");
+        }
+        return mapListOfEntityToDTO(allByCatalogId);
     }
 
     private List<ProductDTO> mapListOfEntityToDTO(List<Product> all) {
         log.debug("start mapping List<Product> in List<ProductDTO>");
-        return all.stream().map(product -> mapper.map(product,ProductDTO.class))
+        return all.stream().map(product -> mapper.map(product, ProductDTO.class))
                 .collect(Collectors.toList());
     }
 }

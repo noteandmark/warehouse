@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @JdbcTest
 @Import(JdbcCatalogDAOImpl.class)
-@Sql({"classpath:schema.sql", "classpath:startedData.sql"})
+@Sql({"classpath:schema.sql", "classpath:resStartedData.sql"})
 class JdbcCatalogDAOImplTest {
 
     @Autowired
@@ -32,7 +32,7 @@ class JdbcCatalogDAOImplTest {
     @Test
     void findAll() {
         assertNotNull(repository.findAll());
-        assertEquals(1, repository.findAll().size());
+        assertEquals(2, repository.findAll().size());
     }
 
     @Test
@@ -56,7 +56,10 @@ class JdbcCatalogDAOImplTest {
 
     @Test
     void delete() {
-        assertEquals(1, repository.delete(1L));
+        Catalog catalog = new Catalog();
+        catalog.setName("lamps");
+        repository.save(catalog);
+        assertEquals(1, repository.delete(catalog.getId()));
         assertEquals(0, repository.delete(1L));
     }
 

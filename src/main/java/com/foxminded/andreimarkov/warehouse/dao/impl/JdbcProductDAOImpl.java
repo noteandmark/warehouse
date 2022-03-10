@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public class JdbcProductDAOImpl implements ProductDAO {
     private static final String SQL_UPDATE_PRODUCT = "update product set code = ?, name = ?, description  = ?, quantity = ?, price = ?, catalog_id =? where id = ?";
     private static final String SQL_GET_ALL = "select id,code,name,description,quantity,price,catalog_id from product ORDER BY id ASC";
     private static final String SQL_INSERT_PRODUCT = "insert into product(code,name,description,quantity,price,catalog_id) values(?,?,?,?,?,?);";
+    private static final String SQL_FIND_PRODUCTS_FROM_CATALOG = "select id,code,name,description,quantity,price,catalog_id from product where catalog_id = ?";
 
     @Autowired
     public JdbcProductDAOImpl(JdbcTemplate jdbcTemplate) {
@@ -84,6 +86,11 @@ public class JdbcProductDAOImpl implements ProductDAO {
     public int delete(Long id) {
         log.debug("delete product by id {}", id);
         return jdbcTemplate.update(SQL_DELETE_PRODUCT, id);
+    }
+
+    public List<Product> getProductsByCatalogId(Integer id) {
+        log.debug("getting products with catalog_id = {}",id);
+        return jdbcTemplate.query(SQL_FIND_PRODUCTS_FROM_CATALOG,new BeanPropertyRowMapper<Product>(Product.class), id);
     }
 
 }
