@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Location Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/1051ca72c4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:insert="~{fragments/layout :: header-fragment}"></div>
+<div class="container-fluid" th:switch="${locations}">
+    <h2 th:case="null">No locations yet!</h2>
+    <div th:case="*">
+        <h2 th:text="'List of warehouses location'">Locations</h2>
+        <div class="table-responsive">
+            <table class="table-primary table-bordered">
+                <thead>
+                <tr>
+                    <th>Warehouse Name</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="location : ${locations}">
+                    <td th:text="${location.warehouseName}" style="width: 150px">Name</td>
+                    <td style="width: 50px"><a href="#" th:href="@{/locations/view/{id}(id=${location.id})}">View</a>
+                    </td>
+                    <td style="width: 50px"><a th:href="@{/locations/edit/{id}(id=${location.id})}">Edit</a></td>
+                    <td style="width: 50px"><a th:href="@{/locations/delete/{id}(id=${location.id})}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr/>
+    <p class="my-5"><a href="/locations/add-location" class="btn btn-primary">Add new location
+        <i class="fas fa-user-plus ml-2"></i></a></p>
+    <hr/>
+    <i class="fa-solid fa-hand-point-left"></i>
+    <a href="/locations/index.html">Go back</a>
+</div>
+<div th:insert="~{fragments/layout :: footer-fragment}"></div>
+</body>
+</html>

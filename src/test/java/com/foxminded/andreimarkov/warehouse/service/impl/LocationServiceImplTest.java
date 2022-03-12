@@ -41,7 +41,6 @@ class LocationServiceImplTest {
         when(mapper.map(location, LocationDTO.class)).thenReturn(locationDTO);
         locationDTO.setId(20000L);
         locationDTO.setWarehouseName("Main warehouse");
-        locationDTO.setShelfNumber(15);
     }
 
     @Test

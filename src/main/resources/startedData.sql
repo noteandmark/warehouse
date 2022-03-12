@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS location
 (
     id             bigserial,
     warehouse_name varchar(30),
-    shelf_number   int,
     PRIMARY KEY (id)
 );
 
@@ -40,6 +39,7 @@ CREATE TABLE IF NOT EXISTS product
     PRIMARY KEY (id)
 );
 --ALTER TABLE product ADD CONSTRAINT product_fk1 FOREIGN KEY (catalog_id) REFERENCES catalog (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+--ALTER TABLE product ADD CONSTRAINT product_fk2 FOREIGN KEY (location_id) REFERENCES location (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 CREATE TABLE IF NOT EXISTS orders
 (
