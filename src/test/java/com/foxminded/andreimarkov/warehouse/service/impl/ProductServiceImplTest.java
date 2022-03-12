@@ -56,7 +56,6 @@ class ProductServiceImplTest {
         catalogDTO.setName("lamps");
         locationDTO.setId(20000L);
         locationDTO.setWarehouseName("Main warehouse");
-        locationDTO.setShelfNumber(15);
         productDTO.setCatalogId(Math.toIntExact(catalogDTO.getId()));
         productDTO.setLocationDTO(locationDTO);
     }
