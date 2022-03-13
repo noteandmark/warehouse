@@ -21,12 +21,12 @@ import java.util.Optional;
 public class JdbcProductDAOImpl implements ProductDAO {
     private final JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_FIND_PRODUCT = "select id,code,name,description,quantity,price,catalog_id from product where id = ?";
+    private static final String SQL_FIND_PRODUCT = "select id,code,name,description,quantity,price,catalog_id,location_id from product where id = ?";
     private static final String SQL_DELETE_PRODUCT = "delete from product where id = ?";
-    private static final String SQL_UPDATE_PRODUCT = "update product set code = ?, name = ?, description  = ?, quantity = ?, price = ?, catalog_id =? where id = ?";
-    private static final String SQL_GET_ALL = "select id,code,name,description,quantity,price,catalog_id from product ORDER BY id ASC";
-    private static final String SQL_INSERT_PRODUCT = "insert into product(code,name,description,quantity,price,catalog_id) values(?,?,?,?,?,?);";
-    private static final String SQL_FIND_PRODUCTS_FROM_CATALOG = "select id,code,name,description,quantity,price,catalog_id from product where catalog_id = ?";
+    private static final String SQL_UPDATE_PRODUCT = "update product set code = ?, name = ?, description  = ?, quantity = ?, price = ?, catalog_id =?, location_id=? where id = ?";
+    private static final String SQL_GET_ALL = "select id,code,name,description,quantity,price,catalog_id,location_id from product ORDER BY id ASC";
+    private static final String SQL_INSERT_PRODUCT = "insert into product(code,name,description,quantity,price,catalog_id,location_id) values(?,?,?,?,?,?,?);";
+    private static final String SQL_FIND_PRODUCTS_FROM_CATALOG = "select id,code,name,description,quantity,price,catalog_id,location_id from product where catalog_id = ?";
 
     @Autowired
     public JdbcProductDAOImpl(JdbcTemplate jdbcTemplate) {
@@ -47,6 +47,7 @@ public class JdbcProductDAOImpl implements ProductDAO {
                     ps.setInt(4, product.getQuantity());
                     ps.setInt(5, product.getPrice());
                     ps.setInt(6, product.getCatalogId());
+                    ps.setInt(7, product.getLocationId());
                     return ps;
                 },
                 keyHolder);
@@ -76,8 +77,7 @@ public class JdbcProductDAOImpl implements ProductDAO {
     @Override
     public Product update(Product product) {
         log.debug("update product");
-        System.out.println("product.getName() = " + product.getName() + " product.getCatalogId() = " + product.getCatalogId());
-        jdbcTemplate.update(SQL_UPDATE_PRODUCT, product.getCode(), product.getName(), product.getDescription(), product.getQuantity(), product.getPrice(), product.getCatalogId(), product.getId());
+        jdbcTemplate.update(SQL_UPDATE_PRODUCT, product.getCode(), product.getName(), product.getDescription(), product.getQuantity(), product.getPrice(), product.getCatalogId(), product.getLocationId(),product.getId());
         log.debug("product {} updated", product.getName());
         return product;
     }

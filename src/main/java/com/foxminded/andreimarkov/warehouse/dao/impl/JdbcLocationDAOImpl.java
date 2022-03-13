@@ -26,11 +26,11 @@ public class JdbcLocationDAOImpl implements LocationDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private static final String SQL_FIND_LOCATION = "select id,warehouse_name,shelf_number from location where id = ?";
+    private static final String SQL_FIND_LOCATION = "select id,warehouse_name from location where id = ?";
     private static final String SQL_DELETE_LOCATION = "delete from location where id = ?";
-    private static final String SQL_UPDATE_LOCATION = "update location set warehouse_name = ?, shelf_number = ? where id = ?";
-    private static final String SQL_GET_ALL = "select id,warehouse_name,shelf_number from location ORDER BY id ASC";
-    private static final String SQL_INSERT_LOCATION = "insert into location(warehouse_name, shelf_number) values(?,?);";
+    private static final String SQL_UPDATE_LOCATION = "update location set warehouse_name = ? = ? where id = ?";
+    private static final String SQL_GET_ALL = "select id,warehouse_name from location ORDER BY id ASC";
+    private static final String SQL_INSERT_LOCATION = "insert into location(warehouse_name) values(?);";
 
     @Override
     public Location save(Location location) {
@@ -41,7 +41,6 @@ public class JdbcLocationDAOImpl implements LocationDAO {
                     PreparedStatement ps =
                             connection.prepareStatement(SQL_INSERT_LOCATION, new String[]{"id"});
                     ps.setString(1, location.getWarehouseName());
-                    ps.setInt(2, location.getShelfNumber());
                     return ps;
                 },
                 keyHolder);

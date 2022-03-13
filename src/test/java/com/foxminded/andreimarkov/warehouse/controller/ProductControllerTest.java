@@ -3,6 +3,7 @@ package com.foxminded.andreimarkov.warehouse.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foxminded.andreimarkov.warehouse.dto.ProductDTO;
 import com.foxminded.andreimarkov.warehouse.service.impl.CatalogServiceImpl;
+import com.foxminded.andreimarkov.warehouse.service.impl.LocationServiceImpl;
 import com.foxminded.andreimarkov.warehouse.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -40,6 +41,9 @@ class ProductControllerTest {
 
     @MockBean
     private CatalogServiceImpl catalogService;
+
+    @MockBean
+    private LocationServiceImpl locationService;
 
     @Test
     void listProducts_whenGetAllProducts_thenShouldReturnModel() throws Exception {
@@ -92,7 +96,9 @@ class ProductControllerTest {
         mockMvc.perform((get("/products/add-product")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("products/add-product"))
-                .andExpect(model().attributeExists("productDTO"));
+                .andExpect(model().attributeExists("productDTO"))
+                .andExpect(model().attributeExists("catalogs"))
+                .andExpect(model().attributeExists("locations"));
     }
 
     @Test
@@ -115,7 +121,9 @@ class ProductControllerTest {
         mockMvc.perform(get("/products/edit/2"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("products/update-product"))
-                .andExpect(model().attributeExists("productDTO"));
+                .andExpect(model().attributeExists("productDTO"))
+                .andExpect(model().attributeExists("catalogs"))
+                .andExpect(model().attributeExists("locations"));
     }
 
     @Test
