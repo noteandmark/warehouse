@@ -3,6 +3,7 @@ package com.foxminded.andreimarkov.warehouse.controller;
 import com.foxminded.andreimarkov.warehouse.dto.ProductDTO;
 import com.foxminded.andreimarkov.warehouse.exceptions.ServiceException;
 import com.foxminded.andreimarkov.warehouse.service.impl.CatalogServiceImpl;
+import com.foxminded.andreimarkov.warehouse.service.impl.LocationServiceImpl;
 import com.foxminded.andreimarkov.warehouse.service.impl.ProductServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,13 @@ public class ProductController {
 
     private final ProductServiceImpl productService;
     private final CatalogServiceImpl catalogService;
+    private final LocationServiceImpl locationService;
 
     @Autowired
-    public ProductController(ProductServiceImpl productService, CatalogServiceImpl catalogService) {
+    public ProductController(ProductServiceImpl productService, CatalogServiceImpl catalogService, LocationServiceImpl locationService) {
         this.productService = productService;
         this.catalogService = catalogService;
+        this.locationService = locationService;
     }
 
     @GetMapping({"", "/index", "/index.html"})
@@ -45,6 +48,7 @@ public class ProductController {
     @GetMapping("/add-product")
     public String newProduct(@ModelAttribute("productDTO") ProductDTO productDTO, Model model) {
         model.addAttribute("catalogs", catalogService.findAll());
+        model.addAttribute("locations", locationService.findAll());
         return "products/add-product";
     }
 
@@ -75,6 +79,7 @@ public class ProductController {
         log.info("edit productDTO with id: " + productDTO.getId() + " name: " + productDTO.getName());
         model.addAttribute("productDTO", productDTO);
         model.addAttribute("catalogs", catalogService.findAll());
+        model.addAttribute("locations", locationService.findAll());
         return "products/update-product";
     }
 

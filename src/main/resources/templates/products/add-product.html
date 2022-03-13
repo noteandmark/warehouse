@@ -48,6 +48,16 @@
                 </option>
             </select>
         </div>
+        <label>Add product to warehouse:</label>
+        <br/>
+        <div class="col-md-5">
+            <select id="locations" class="form-control" th:field="*{locationId}">
+                <option th:each="location : ${locations}"
+                        th:value="${location.getId()}"
+                        th:text="${location.getWarehouseName()}">
+                </option>
+            </select>
+        </div>
         <br/>
         <input type="submit" class="btn btn-primary" value="Add Product"/>
     </form>

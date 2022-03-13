@@ -11,5 +11,5 @@ public class Product {
     private int quantity;
     private int price;
     private int catalogId;
-    private Location location;
+    private int locationId;
 }

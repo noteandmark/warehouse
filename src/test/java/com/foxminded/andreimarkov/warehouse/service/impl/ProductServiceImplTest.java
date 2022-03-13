@@ -57,7 +57,7 @@ class ProductServiceImplTest {
         locationDTO.setId(20000L);
         locationDTO.setWarehouseName("Main warehouse");
         productDTO.setCatalogId(Math.toIntExact(catalogDTO.getId()));
-        productDTO.setLocationDTO(locationDTO);
+        productDTO.setLocationId(Math.toIntExact(locationDTO.getId()));
     }
 
     @Test

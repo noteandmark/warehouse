@@ -36,7 +36,6 @@
         <label for="price">Price</label>
         <input type="text" class="form-control" th:field="*{price}" id="price" placeholder="Price">
         <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
-
         <div class="row">
             <label>Add product to catalog:</label>
             <br/>
@@ -45,6 +44,18 @@
                     <option th:each="catalog : ${catalogs}"
                             th:value="${catalog.getId()}"
                             th:text="${catalog.getName()}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <label>Add product to warehouse:</label>
+            <br/>
+            <div class="col-md-5">
+                <select id="locationId" class="form-control" th:field="*{locationId}" required>
+                    <option th:each="location : ${locations}"
+                            th:value="${location.getId()}"
+                            th:text="${location.getWarehouseName()}">
                     </option>
                 </select>
             </div>

@@ -11,5 +11,5 @@ public class ProductDTO {
     private int quantity;
     private int price;
     private int catalogId;
-    private LocationDTO locationDTO;
+    private int locationId;
 }
