@@ -49,7 +49,7 @@ class OrderPositionServiceImplTest {
         orderPositionDTO.setId(20000L);
         productDTO.setId(100L);
         productDTO.setName("some product");
-        orderPositionDTO.setProductDTO(productDTO);
+        orderPositionDTO.setProductId(Math.toIntExact(productDTO.getId()));
         orderPositionDTO.setAmount(10);
     }
 

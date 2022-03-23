@@ -2,7 +2,7 @@ package com.foxminded.andreimarkov.warehouse.controller;
 
 import com.foxminded.andreimarkov.warehouse.dto.OrderDTO;
 import com.foxminded.andreimarkov.warehouse.exceptions.ServiceException;
-import com.foxminded.andreimarkov.warehouse.service.OrderService;
+import com.foxminded.andreimarkov.warehouse.service.impl.OrderServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @Slf4j
 public class OrderController {
-    private final OrderService orderService;
+    private final OrderServiceImpl orderService;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderServiceImpl orderService) {
         this.orderService = orderService;
     }
 
@@ -79,7 +79,7 @@ public class OrderController {
             log.error("error in post mapping update-order: " + result.toString());
             return "orders/update-order";
         }
-        log.debug("no error in post mapping update-company with id: " + id);
+        log.debug("no error in post mapping update-order with id: " + id);
         orderDTO.setId(id);
         orderService.update(orderDTO);
         log.info("performed the method orderService.update order with id: " + id);
