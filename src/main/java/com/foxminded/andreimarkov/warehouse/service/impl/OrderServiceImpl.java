@@ -2,6 +2,7 @@ package com.foxminded.andreimarkov.warehouse.service.impl;
 
 import com.foxminded.andreimarkov.warehouse.dao.impl.JdbcOrderDAOImpl;
 import com.foxminded.andreimarkov.warehouse.dto.OrderDTO;
+import com.foxminded.andreimarkov.warehouse.dto.OrderPositionDTO;
 import com.foxminded.andreimarkov.warehouse.exceptions.ServiceException;
 import com.foxminded.andreimarkov.warehouse.model.Order;
 import com.foxminded.andreimarkov.warehouse.service.OrderService;
@@ -59,6 +60,12 @@ public class OrderServiceImpl implements OrderService {
         OrderDTO orderDTO = mapper.map(orderById, OrderDTO.class);
         log.debug("get orderDTO");
         return Optional.ofNullable(orderDTO);
+    }
+
+    public void addPosition(OrderDTO orderDTO, OrderPositionDTO orderPositionDTO) {
+        log.debug("startind addPosition with id {}",orderDTO.getId());
+        Order order = mapper.map(orderDTO, Order.class);
+
     }
 
     @Override
