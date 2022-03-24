@@ -30,10 +30,11 @@ class JdbcProductDAOImplTest {
         product.setQuantity(22);
         product.setPrice(1500);
         product.setCatalogId(1);
+        product.setLocationId(1);
         repository.save(product);
         assertNotNull(product);
         assertNotNull(product.getId());
-        assertEquals("Magnum WPF 2*18w",product.getName());
+        assertEquals("Magnum WPF 2*18w", product.getName());
     }
 
     @Test
@@ -58,12 +59,13 @@ class JdbcProductDAOImplTest {
         product.setQuantity(22);
         product.setPrice(1500);
         product.setCatalogId(1);
+        product.setLocationId(1);
         repository.save(product);
         product.setName("Magnum fluorescent WPF 2*18w");
         Product updated = repository.update(product);
         assertNotNull(updated);
         assertNotNull(updated.getId());
-        assertEquals("Magnum fluorescent WPF 2*18w",updated.getName());
+        assertEquals("Magnum fluorescent WPF 2*18w", updated.getName());
     }
 
     @Test
@@ -84,6 +86,7 @@ class JdbcProductDAOImplTest {
         product1.setQuantity(22);
         product1.setPrice(1500);
         product1.setCatalogId(1);
+        product1.setLocationId(1);
 
         product2.setCode("350791");
         product2.setName("Magnum WPF 2*20w");
@@ -91,6 +94,7 @@ class JdbcProductDAOImplTest {
         product2.setQuantity(20);
         product2.setPrice(1700);
         product2.setCatalogId(1);
+        product2.setLocationId(1);
 
         product3.setCode("350792");
         product3.setName("Magnum WPF 2*25w");
@@ -98,6 +102,7 @@ class JdbcProductDAOImplTest {
         product3.setQuantity(5);
         product3.setPrice(2500);
         product3.setCatalogId(2);
+        product3.setLocationId(1);
 
         repository.save(product1);
         repository.save(product2);

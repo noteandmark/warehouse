@@ -26,7 +26,7 @@ class JdbcOrderPositionDAOImplTest {
     void save() {
         OrderPosition orderPosition = new OrderPosition();
         orderPosition.setAmount(150);
-        orderPosition.setProduct(productDAO.getById(1L).get());
+        orderPosition.setProductId(Math.toIntExact(productDAO.getById(1L).get().getId()));
         orderPositionDAO.save(orderPosition);
         assertNotNull(orderPosition);
         assertNotNull(orderPosition.getId());
@@ -50,7 +50,7 @@ class JdbcOrderPositionDAOImplTest {
     void update() {
         OrderPosition orderPosition = new OrderPosition();
         orderPosition.setAmount(150);
-        orderPosition.setProduct(productDAO.getById(1L).get());
+        orderPosition.setProductId(Math.toIntExact(productDAO.getById(1L).get().getId()));
         orderPositionDAO.save(orderPosition);
         orderPosition.setAmount(200);
         OrderPosition updated = orderPositionDAO.update(orderPosition);

@@ -6,11 +6,11 @@ DROP TABLE IF EXISTS company cascade;
 -- DROP TABLE IF EXISTS schema.product_catalog;
 -- DROP TABLE IF EXISTS schema.orderposition_order;
 DROP TABLE IF EXISTS location cascade;
-DROP TABLE IF EXISTS orderposition cascade;
-DROP TABLE IF EXISTS warehouse cascade;
 DROP TABLE IF EXISTS catalog cascade;
 DROP TABLE IF EXISTS product cascade;
+DROP TABLE IF EXISTS orderposition cascade;
 DROP TABLE IF EXISTS orders cascade;
+DROP TABLE IF EXISTS warehouse cascade;
 
 CREATE TABLE IF NOT EXISTS person
 (
@@ -36,18 +36,18 @@ CREATE TABLE IF NOT EXISTS company
 CREATE TABLE IF NOT EXISTS location
 (
     id             bigserial,
-    warehouse_name varchar(30)
+    warehouse_name varchar(30),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE catalog
+CREATE TABLE IF NOT EXISTS catalog
 (
     id   bigserial,
     name varchar(255),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE product
+CREATE TABLE IF NOT EXISTS product
 (
     id          bigserial,
     code        varchar(255),
@@ -60,8 +60,10 @@ CREATE TABLE product
     PRIMARY KEY (id)
 );
 
-ALTER TABLE product ADD CONSTRAINT product_fk1 FOREIGN KEY (catalog_id) REFERENCES catalog (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
-ALTER TABLE product ADD CONSTRAINT product_fk2 FOREIGN KEY (location_id) REFERENCES location (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+ALTER TABLE product
+    ADD CONSTRAINT product_fk1 FOREIGN KEY (catalog_id) REFERENCES catalog (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+ALTER TABLE product
+    ADD CONSTRAINT product_fk2 FOREIGN KEY (location_id) REFERENCES location (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 CREATE TABLE IF NOT EXISTS orders
 (

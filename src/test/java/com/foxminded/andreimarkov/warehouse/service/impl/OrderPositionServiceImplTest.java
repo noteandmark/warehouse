@@ -74,7 +74,7 @@ class OrderPositionServiceImplTest {
         orderPosition.setId(10000L);
         product.setId(100L);
         product.setName("some product");
-        orderPosition.setProduct(product);
+        orderPosition.setProductId(Math.toIntExact(product.getId()));
         orderPosition.setAmount(20);
         when(orderPositionDAO.getById(anyLong())).thenReturn(Optional.ofNullable(orderPosition));
         Optional<OrderPositionDTO> actual = orderPositionService.getById(10000L);

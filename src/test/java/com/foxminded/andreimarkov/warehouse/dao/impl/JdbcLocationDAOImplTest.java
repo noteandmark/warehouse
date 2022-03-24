@@ -23,7 +23,6 @@ class JdbcLocationDAOImplTest {
     void save() {
         Location location = new Location();
         location.setWarehouseName("83 warehouse");
-        location.setShelfNumber(15);
         repository.save(location);
         assertNotNull(location);
         assertNotNull(location.getId());
@@ -47,18 +46,19 @@ class JdbcLocationDAOImplTest {
     void update() {
         Location location = new Location();
         location.setWarehouseName("83 warehouse");
-        location.setShelfNumber(10);
         repository.save(location);
-        location.setShelfNumber(20);
         Location updated = repository.update(location);
         assertNotNull(updated);
         assertNotNull(updated.getId());
-        assertEquals(20,updated.getShelfNumber());
+        assertEquals("83 warehouse",updated.getWarehouseName());
     }
 
     @Test
     void delete() {
-        assertEquals(1, repository.delete(1L));
-        assertEquals(0, repository.delete(1L));
+        Location location = new Location();
+        location.setWarehouseName("additional");
+        repository.save(location);
+        assertEquals(1, repository.delete(location.getId()));
+        assertEquals(0, repository.delete(100L));
     }
 }

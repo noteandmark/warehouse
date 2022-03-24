@@ -3,6 +3,7 @@ package com.foxminded.andreimarkov.warehouse.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foxminded.andreimarkov.warehouse.dto.OrderPositionDTO;
 import com.foxminded.andreimarkov.warehouse.service.impl.OrderPositionServiceImpl;
+import com.foxminded.andreimarkov.warehouse.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ class OrderPositionControllerTest {
 
     @MockBean
     private OrderPositionServiceImpl orderPositionService;
+    @MockBean
+    private ProductServiceImpl productService;
 
     @Test
     void listOrderPositions_whenGetAllOrderPositions_thenShouldReturnModel() throws Exception {
