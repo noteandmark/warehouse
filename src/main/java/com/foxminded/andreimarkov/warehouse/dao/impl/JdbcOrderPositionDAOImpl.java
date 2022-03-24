@@ -41,7 +41,7 @@ public class JdbcOrderPositionDAOImpl implements OrderPositionDAO {
                     PreparedStatement ps =
                             connection.prepareStatement(SQL_INSERT_ORDERPOSITION, new String[]{"id"});
                     ps.setInt(1, orderPosition.getAmount());
-                    ps.setLong(2, orderPosition.getProduct().getId());
+                    ps.setLong(2, orderPosition.getProductId());
                     return ps;
                 },
                 keyHolder);
@@ -71,7 +71,7 @@ public class JdbcOrderPositionDAOImpl implements OrderPositionDAO {
     @Override
     public OrderPosition update(OrderPosition orderPosition) {
         log.debug("update orderPosition");
-        jdbcTemplate.update(SQL_UPDATE_ORDERPOSITION, orderPosition.getAmount(), orderPosition.getProduct().getId(), orderPosition.getId());
+        jdbcTemplate.update(SQL_UPDATE_ORDERPOSITION, orderPosition.getAmount(), orderPosition.getProductId(), orderPosition.getId());
         log.debug("orderPosition id {} updated",orderPosition.getId());
         return orderPosition;
     }

@@ -6,5 +6,4 @@ import lombok.*;
 public class Location {
     private Long id;
     private String warehouseName;
-    private int shelfNumber;
 }

@@ -23,7 +23,7 @@
             <table class="table-primary table-bordered">
                 <thead>
                 <tr>
-                    <th>Product Name</th>
+                    <th>Product Id</th>
                     <th>Amount</th>
                     <th>View</th>
                     <th>Edit</th>
@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="orderposition : ${orderpositions}">
-                    <td th:text="${order.status}" style="width: 150px">check</td>
+                    <td th:text="${orderposition.id}" style="width: 150px">product id</td>
                     <td th:text="${orderposition.amount}" style="text-align: center">100</td>
                     <td style="width: 50px"><a th:href="@{/orderpositions/view/{id}(id=${orderposition.id})}">View</a></td>
                     <td style="width: 50px"><a th:href="@{/orderpositions/edit/{id}(id=${orderposition.id})}">Edit</a></td>
@@ -43,7 +43,7 @@
         </div>
     </div>
     <hr/>
-    <p class="my-5"><a href="/orders/add-position" class="btn btn-primary">Add new position <i class="fas fa-user-plus ml-2"></i></a></p>
+    <p class="my-5"><a href="/orderpositions/add-position" class="btn btn-primary">Add new position <i class="fas fa-user-plus ml-2"></i></a></p>
     <hr/>
     <i class="fa-solid fa-hand-point-left"></i>
     <a href="/orders/index.html">Go back</a>

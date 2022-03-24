@@ -1,6 +1,7 @@
 package com.foxminded.andreimarkov.warehouse.dao.impl;
 
 import com.foxminded.andreimarkov.warehouse.dao.LocationDAO;
+import com.foxminded.andreimarkov.warehouse.model.Catalog;
 import com.foxminded.andreimarkov.warehouse.model.Location;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class JdbcLocationDAOImpl implements LocationDAO {
 
     private static final String SQL_FIND_LOCATION = "select id,warehouse_name from location where id = ?";
     private static final String SQL_DELETE_LOCATION = "delete from location where id = ?";
-    private static final String SQL_UPDATE_LOCATION = "update location set warehouse_name = ? = ? where id = ?";
+    private static final String SQL_UPDATE_LOCATION = "update location set warehouse_name = ? where id = ?";
     private static final String SQL_GET_ALL = "select id,warehouse_name from location ORDER BY id ASC";
     private static final String SQL_INSERT_LOCATION = "insert into location(warehouse_name) values(?);";
 
@@ -70,7 +71,7 @@ public class JdbcLocationDAOImpl implements LocationDAO {
     @Override
     public Location update(Location location) {
         log.debug("update location");
-        jdbcTemplate.update(SQL_UPDATE_LOCATION, location.getWarehouseName(), location.getShelfNumber(), location.getId());
+        jdbcTemplate.update(SQL_UPDATE_LOCATION, location.getWarehouseName(), location.getId());
         log.debug("location {} updated",location.getWarehouseName());
         return location;
     }

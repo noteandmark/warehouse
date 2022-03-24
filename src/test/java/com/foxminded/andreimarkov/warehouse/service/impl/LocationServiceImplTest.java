@@ -63,7 +63,6 @@ class LocationServiceImplTest {
     void getById() {
         location.setId(10000L);
         location.setWarehouseName("Main warehouse");
-        location.setShelfNumber(20);
         when(locationDAO.getById(anyLong())).thenReturn(Optional.ofNullable(location));
         Optional<LocationDTO> actual = locationService.getById(10000L);
         assertEquals(locationDTO, actual.get());

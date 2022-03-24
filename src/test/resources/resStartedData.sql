@@ -10,16 +10,16 @@ values ('spots');
 insert into catalog (name)
 values ('timers');
 
-insert into product (code, name, description, quantity, price, catalog_id)
-values ('392005', 'Feron JCD9 220v/35w', 'spot light', 1000, 120, 1);
+insert into warehouse (name)
+values ('main');
 
 insert into location (warehouse_name)
-values ('90 warehouse', 5);
+values ('90 warehouse');
+
+insert into product (code, name, description, quantity, price, catalog_id, location_id)
+values ('392005', 'Feron JCD9 220v/35w', 'spot light', 1000, 120, 1, 1);
 
 insert into orders (status, date)
 values ('not_processed', '08-01-2022 18:00:00');
 
 insert into orderposition (amount, product_id) values (100, 1);
-
-insert into warehouse (name)
-values ('main');
